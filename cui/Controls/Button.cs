@@ -16,7 +16,7 @@ namespace cui.Controls
 
         readonly ButtonPressedHandler _handler;
         
-        public override void Draw()
+        public override void DrawControl()
         {
             Console.WriteLine(Name);
         }

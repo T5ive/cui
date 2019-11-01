@@ -6,7 +6,7 @@ namespace cui.Controls
     {
         public Label(string name) : base(name) { }
 
-        public override void Draw()
+        public override void DrawControl()
         {
             Console.WriteLine(Name);
         }

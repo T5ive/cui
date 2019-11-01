@@ -1,6 +1,6 @@
 namespace cui
 {
-    public abstract class Control : IHasName, IDrawable
+    public abstract class Control : IHasName
     {
         protected Control(string name)
         {
@@ -9,6 +9,6 @@ namespace cui
         
         public string Name { get; }
 
-        public abstract void Draw();
+        public abstract void DrawControl();
     }
 }
