@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ContentModelStore">
+    <e p="$USER_HOME$/.Rider2019.2/system/extResources" t="IncludeRecursive" />
+    <e p="$USER_HOME$/.Rider2019.2/system/resharper-host/local/Transient/ReSharperHost/v192/SolutionCaches/_cui.1293409301.00" t="ExcludeRecursive" />
+    <e p="$PROJECT_DIR$" t="IncludeFlat">
+      <e p="cui" t="IncludeRecursive">
+        <e p="CommandLine" t="Include">
+          <e p="CommandLineParser.cs" t="Include" />
+          <e p="CommandLineResult.cs" t="Include" />
+        </e>
+        <e p="Control.cs" t="Include" />
+        <e p="Controls" t="Include">
+          <e p="Button.cs" t="Include" />
+          <e p="Label.cs" t="Include" />
+        </e>
+        <e p="IDrawable.cs" t="Include" />
+        <e p="IHasName.cs" t="Include" />
+        <e p="ILeftRight.cs" t="Include" />
+        <e p="IOtherKey.cs" t="Include" />
+        <e p="IPressable.cs" t="Include" />
+        <e p="bin" t="ExcludeRecursive" />
+        <e p="cui.csproj" t="IncludeRecursive" />
+        <e p="obj" t="ExcludeRecursive">
+          <e p="Debug" t="Include">
+            <e p="net45" t="Include">
+              <e p="cui.AssemblyInfo.cs" t="Include" />
+            </e>
+            <e p="netstandard2.0" t="Include">
+              <e p="cui.AssemblyInfo.cs" t="Include" />
+            </e>
+          </e>
+        </e>
+      </e>
+      <e p="cui.sln" t="IncludeFlat" />
+      <e p="packages" t="ExcludeRecursive" />
+    </e>
+  </component>
+</project>
