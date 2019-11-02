@@ -27,20 +27,20 @@ namespace cui.Controls
         public void OtherKey(ConsoleKeyInfo info)
         {
             if (info.Key == ConsoleKey.Spacebar)
-                Pressed();
+                Pressed(info);
         }
         
-        public void Left()
+        public void Left(ConsoleKeyInfo info)
         {
-            Pressed();
+            Pressed(info);
         }
 
-        public void Right()
+        public void Right(ConsoleKeyInfo info)
         {
-            Pressed();
+            Pressed(info);
         }
 
-        public void Pressed()
+        public void Pressed(ConsoleKeyInfo info)
         {
             Checked = !Checked;
         }

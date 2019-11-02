@@ -30,8 +30,8 @@ namespace cui.Abstractions
         bool _copiedEvents;
         void CopyEvents()
         {
-            foreach (var menu in Controls.Where(c => c is MenuBase).Cast<MenuBase>())
-                EventCopyHelper.CopyEventHandlers(this, menu);
+            foreach (var menu in Controls.Where(c => c is MenuBase))
+                EventCopyHelper.CopyEventHandlers(this, menu as MenuBase);
 
             _copiedEvents = true;
         }
@@ -41,6 +41,7 @@ namespace cui.Abstractions
         public void DrawMenu()
         {
             OnEntered?.Invoke(this);
+            
             if (!_copiedEvents)
                 CopyEvents();
 
@@ -79,13 +80,13 @@ namespace cui.Abstractions
                         Index++;
                         break;
                     case ConsoleKey.LeftArrow:
-                        ControlLeft();
+                        ControlLeft(key);
                         break;
                     case ConsoleKey.RightArrow:
-                        ControlRight();
+                        ControlRight(key);
                         break;
                     case ConsoleKey.Enter:
-                        ControlPressed();
+                        ControlPressed(key);
                         break;
                     default:
                         ControlOtherKey(key);
@@ -104,22 +105,22 @@ namespace cui.Abstractions
                 other.OtherKey(info);
         }
 
-        void ControlPressed()
+        void ControlPressed(ConsoleKeyInfo info)
         {
             if (Controls[Index] is IPressable pressable)
-                pressable.Pressed();
+                pressable.Pressed(info);
         }
 
-        void ControlLeft()
+        void ControlLeft(ConsoleKeyInfo info)
         {
             if (Controls[Index] is ILeftRight left)
-                left.Left();
+                left.Left(info);
         }
 
-        void ControlRight()
+        void ControlRight(ConsoleKeyInfo info)
         {
             if (Controls[Index] is ILeftRight right)
-                right.Right();
+                right.Right(info);
         }
 
         void NormaliseIndex()
@@ -135,16 +136,16 @@ namespace cui.Abstractions
             ConsoleColorHelper.Write(Name, ConsoleColor.Yellow);
             ConsoleColorHelper.WriteLine(" >>", ConsoleColor.Cyan);
         }
+        
+        public void Pressed(ConsoleKeyInfo info)
+        {
+            DrawMenu();
+        }
 
         internal IEnumerable<EnterExitHandler> GetEnteredHandlers() => OnEntered?.GetInvocationList().Cast<EnterExitHandler>();
         internal IEnumerable<EnterExitHandler> GetExitedHandlers() => OnExited?.GetInvocationList().Cast<EnterExitHandler>();
         
         public event EnterExitHandler OnEntered;
         public event EnterExitHandler OnExited;
-        
-        public void Pressed()
-        {
-            DrawMenu();
-        }
     }
 }

@@ -1,8 +1,10 @@
+using System;
+
 namespace cui.Interfaces
 {
     public interface ILeftRight
     {
-        void Left();
-        void Right();
+        void Left(ConsoleKeyInfo info);
+        void Right(ConsoleKeyInfo info);
     }
 }

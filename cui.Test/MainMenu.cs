@@ -14,6 +14,7 @@ namespace cui.Test
                 Console.Beep();
             }));
             AddControl(new Checkbox("Test checkbox"));
+            AddControl(new Slider<int>("Test slider<int>", 10, 1, 0, 100));
             AddControl(new Temp());
         }
 
