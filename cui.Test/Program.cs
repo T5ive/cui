@@ -6,8 +6,7 @@
         {
             var manager = new CuiManager(new CuiSettings
             {
-                DisableControlC = true,
-                CustomTitle = "Hello There"
+                DisableControlC = true
             });
             
             manager.DrawMenu(new MainMenu());

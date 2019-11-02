@@ -13,8 +13,13 @@ namespace cui.Test
             {
                 Console.Beep();
             }));
-            
             AddControl(new Checkbox("Test checkbox"));
+            AddControl(new Temp());
+        }
+
+        class Temp : MenuBase
+        {
+            public Temp() : base("Temp") { }
         }
     }
 }

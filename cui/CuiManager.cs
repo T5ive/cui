@@ -1,5 +1,6 @@
 using System;
 using cui.Abstractions;
+using cui.Interfaces;
 using cui.Internal;
 
 namespace cui
@@ -17,8 +18,15 @@ namespace cui
         public void DrawMenu(MenuBase menu)
         {
             Setup();
-            menu.SubscribeToHierarchy(_settings.ShowMenuHierarchyInTitle ? _hierarchy : null);
+            if (_settings.ShowMenuHierarchyInTitle)
+                Subscribe(menu);
             menu.DrawMenu();
+        }
+
+        void Subscribe(INotifyWhenEnteredExited menu)
+        {
+            menu.OnEntered += _hierarchy.Entered;
+            menu.OnExited += _hierarchy.Exited;
         }
 
         void Setup()

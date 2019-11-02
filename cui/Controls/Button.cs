@@ -1,5 +1,7 @@
+using System;
 using cui.Abstractions;
 using cui.Interfaces;
+using cui.Internal.Helpers;
 
 namespace cui.Controls
 {
@@ -13,6 +15,13 @@ namespace cui.Controls
             : this(name)
         {
             _handler = handler;
+        }
+
+        public override void DrawControl()
+        {
+            ConsoleColorHelper.Write("[ ", ConsoleColor.Cyan);
+            ConsoleColorHelper.Write(Name, ConsoleColor.White);
+            ConsoleColorHelper.WriteLine(" ]", ConsoleColor.Cyan);
         }
 
         readonly ButtonPressedHandler _handler;

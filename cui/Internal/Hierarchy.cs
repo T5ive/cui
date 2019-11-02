@@ -27,7 +27,7 @@ namespace cui.Internal
 
         void UpdateConsoleTitle()
         {
-            Console.Title = string.Join(" >> ", _menus.Select(m => m.Name));
+            Console.Title = string.Join(" >> ", _menus.Select(m => m.Name).Reverse());
         }
     }
 }
