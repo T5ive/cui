@@ -1,6 +1,6 @@
 using System;
 
-namespace cui
+namespace cui.Interfaces
 {
     public interface IOtherKey
     {

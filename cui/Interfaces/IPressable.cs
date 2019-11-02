@@ -1,4 +1,4 @@
-namespace cui
+namespace cui.Interfaces
 {
     public interface IPressable
     {

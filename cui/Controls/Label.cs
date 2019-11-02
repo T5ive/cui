@@ -1,14 +1,9 @@
-using System;
+using cui.Abstractions;
 
 namespace cui.Controls
 {
-    public class Label : Control
+    public class Label : ControlBase
     {
         public Label(string name) : base(name) { }
-
-        public override void DrawControl()
-        {
-            Console.WriteLine(Name);
-        }
     }
 }

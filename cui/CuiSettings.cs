@@ -2,7 +2,9 @@ namespace cui
 {
     public class CuiSettings
     {
-        public bool ShowMenuHierarchyInTitle { get; set; } = true;
-        public bool DisableControlC { get; set; } = false;
+        public string CustomTitle { get; set; }
+        public bool ShowMenuHierarchyInTitle { get; set; }
+        public bool DisableControlC { get; set; }
+        public bool ShowConsoleCursor { get; set; }
     }
 }

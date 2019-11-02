@@ -1,8 +1,11 @@
 using System;
+using cui.Abstractions;
+using cui.Interfaces;
+using cui.Internal.Helpers;
 
 namespace cui.Controls
 {
-    public class Checkbox : Control, IOtherKey, ILeftRight, IPressable
+    public class Checkbox : ControlBase, IOtherKey, ILeftRight, IPressable
     {
         public Checkbox(string name) : base(name) { }
         
@@ -10,7 +13,10 @@ namespace cui.Controls
         
         public override void DrawControl()
         {
-            Console.WriteLine($"{Name} [{(Checked ? "X" : " ")}]");
+            Console.Write(Name + " ");
+            ConsoleColorHelper.Write("[", ConsoleColor.Cyan);
+            ConsoleColorHelper.Write(Checked ? "X" : " ", ConsoleColor.Yellow);
+            ConsoleColorHelper.WriteLine("]", ConsoleColor.Cyan);
         }
 
         public void OtherKey(ConsoleKeyInfo info)

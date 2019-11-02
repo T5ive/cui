@@ -1,8 +1,7 @@
-namespace cui
+namespace cui.Interfaces
 {
     public interface IHasName
     {
         string Name { get; }
-        void DrawControl();
     }
 }

@@ -5,7 +5,10 @@
     <e p="$USER_HOME$/.Rider2019.2/system/resharper-host/local/Transient/ReSharperHost/v192/SolutionCaches/_cui.1293409301.00" t="ExcludeRecursive" />
     <e p="$PROJECT_DIR$" t="IncludeFlat">
       <e p="cui" t="IncludeRecursive">
-        <e p="Control.cs" t="Include" />
+        <e p="Abstractions" t="Include">
+          <e p="ControlBase.cs" t="Include" />
+          <e p="MenuBase.cs" t="Include" />
+        </e>
         <e p="Controls" t="Include">
           <e p="Button.cs" t="Include" />
           <e p="Checkbox.cs" t="Include" />
@@ -13,12 +16,22 @@
         </e>
         <e p="CuiManager.cs" t="Include" />
         <e p="CuiSettings.cs" t="Include" />
-        <e p="IHasName.cs" t="Include" />
-        <e p="ILeftRight.cs" t="Include" />
-        <e p="IMenu.cs" t="Include" />
-        <e p="INotifyWhenEntered.cs" t="Include" />
-        <e p="IOtherKey.cs" t="Include" />
-        <e p="IPressable.cs" t="Include" />
+        <e p="Interfaces" t="Include">
+          <e p="IControl.cs" t="Include" />
+          <e p="IEnterExitHandler.cs" t="Include" />
+          <e p="IHasName.cs" t="Include" />
+          <e p="ILeftRight.cs" t="Include" />
+          <e p="IMenu.cs" t="Include" />
+          <e p="INotifyWhenEnteredExited.cs" t="Include" />
+          <e p="IOtherKey.cs" t="Include" />
+          <e p="IPressable.cs" t="Include" />
+        </e>
+        <e p="Internal" t="Include">
+          <e p="Helpers" t="Include">
+            <e p="ConsoleColorHelper.cs" t="Include" />
+          </e>
+          <e p="Hierarchy.cs" t="Include" />
+        </e>
         <e p="bin" t="ExcludeRecursive" />
         <e p="cui.csproj" t="IncludeRecursive" />
         <e p="obj" t="ExcludeRecursive">
@@ -33,6 +46,7 @@
         </e>
       </e>
       <e p="cui.Test" t="IncludeRecursive">
+        <e p="MainMenu.cs" t="Include" />
         <e p="Program.cs" t="Include" />
         <e p="bin" t="ExcludeRecursive" />
         <e p="cui.Test.csproj" t="IncludeRecursive" />

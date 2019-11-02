@@ -1,10 +1,11 @@
-using System;
+using cui.Abstractions;
+using cui.Interfaces;
 
 namespace cui.Controls
 {
     public delegate void ButtonPressedHandler(Button sender);
     
-    public class Button : Control, IPressable
+    public class Button : ControlBase, IPressable
     {
         public Button(string name) : base(name) { }
 
@@ -15,11 +16,6 @@ namespace cui.Controls
         }
 
         readonly ButtonPressedHandler _handler;
-        
-        public override void DrawControl()
-        {
-            Console.WriteLine(Name);
-        }
 
         public void Pressed()
         {
