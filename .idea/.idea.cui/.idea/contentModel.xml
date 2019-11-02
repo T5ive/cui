@@ -30,6 +30,7 @@
           <e p="Helpers" t="Include">
             <e p="ConsoleColorHelper.cs" t="Include" />
             <e p="EventCopyHelper.cs" t="Include" />
+            <e p="HashHelper.cs" t="Include" />
           </e>
           <e p="Hierarchy.cs" t="Include" />
         </e>

@@ -10,7 +10,17 @@ namespace cui.Abstractions
             Name = name;
         }
         
-        public string Name { get; }
+        public string Name { get; set; }
+
+        protected virtual int GetHash()
+        {
+            return Name.GetHashCode();
+        }
+
+        public override int GetHashCode()
+        {
+            return GetHash();
+        }
 
         public virtual void DrawControl()
         {

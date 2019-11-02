@@ -12,6 +12,7 @@ namespace cui.Abstractions
         {
             Controls = new List<ControlBase>();
         }
+        
         public IList<ControlBase> Controls { get; }
 
         protected void AddControl(ControlBase control)
@@ -34,26 +35,38 @@ namespace cui.Abstractions
 
             _copiedEvents = true;
         }
-        
+
+        bool _needsRedraw = true;
+        int _lastDrawnHash;
         public void DrawMenu()
         {
             OnEntered?.Invoke(this);
             if (!_copiedEvents)
                 CopyEvents();
-            
+
+            _lastDrawnHash = HashHelper.MakeHash(Controls);
             while (true)
             {
-                Console.Clear();
-                NormaliseIndex();
-                ConsoleColorHelper.WriteLine(Name + Environment.NewLine, ConsoleColor.Yellow);
-                
-                for (var i = 0; i < Controls.Count; i++)
+                if (!_needsRedraw) HashHelper.NeedsToRedraw(_lastDrawnHash, Controls);
+                if (_needsRedraw)
                 {
-                    ConsoleColorHelper.Write(Index == i ? "-> " : "   ", ConsoleColor.Cyan);
-                    Controls[i].DrawControl();
+                    Console.Clear();
+                    NormaliseIndex();
+                    ConsoleColorHelper.WriteLine(Name + Environment.NewLine, ConsoleColor.Yellow);
+
+                    for (var i = 0; i < Controls.Count; i++)
+                    {
+                        ConsoleColorHelper.Write(Index == i ? "-> " : "   ", ConsoleColor.Cyan);
+                        Controls[i].DrawControl();
+                    }
+
+                    _needsRedraw = false;
+                    _lastDrawnHash = HashHelper.MakeHash(Controls);
                 }
 
-                var key = Console.ReadKey();
+                if (!Console.KeyAvailable) continue;
+                
+                var key = Console.ReadKey(true);
                 if (key.Key == ConsoleKey.Escape) break;
                 
                 // ReSharper disable once SwitchStatementMissingSomeCases
@@ -78,6 +91,8 @@ namespace cui.Abstractions
                         ControlOtherKey(key);
                         break;
                 }
+
+                _needsRedraw = true;
             }
 
             OnExited?.Invoke(this);

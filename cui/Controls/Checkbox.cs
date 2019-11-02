@@ -10,7 +10,12 @@ namespace cui.Controls
         public Checkbox(string name) : base(name) { }
         
         public bool Checked { get; protected set; }
-        
+
+        protected override int GetHash()
+        {
+            return Checked.GetHashCode() + Name.GetHashCode();
+        }
+
         public override void DrawControl()
         {
             Console.Write(Name + " ");

@@ -1,4 +1,6 @@
-﻿namespace cui.Test
+﻿using System.Threading;
+
+namespace cui.Test
 {
     static class Program
     {
@@ -9,7 +11,13 @@
                 DisableControlC = true
             });
             
-            manager.DrawMenu(new MainMenu());
+            var menu = new MainMenu();
+            new Thread(() =>
+            {
+                Thread.Sleep(5000);
+                menu.Controls[0].Name = "ayylmao";
+            }).Start();
+            manager.DrawMenu(menu);
         }
     }
 }

@@ -2,6 +2,6 @@ namespace cui.Interfaces
 {
     public interface IHasName
     {
-        string Name { get; }
+        string Name { get; set; }
     }
 }
