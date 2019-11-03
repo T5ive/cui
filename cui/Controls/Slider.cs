@@ -7,7 +7,7 @@ namespace cui.Controls
 {
     /// <summary>
     /// Implements a Slider control, that can contain any type, as long as there is an operator for + and -
-    /// or can be incremented/decremented with low-level IL <see cref="OperatorHelper"/>
+    /// or can be incremented/decremented with low-level IL, see <see cref="OperatorHelper"/>
     /// </summary>
     /// <typeparam name="T">The type of <see cref="Slider{T}.Value"/></typeparam>
     public class Slider<T> : ControlBase, ISlider<T>, ILeftRight, IOtherKey where T : IEquatable<T>

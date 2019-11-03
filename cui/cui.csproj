@@ -4,15 +4,17 @@
         <TargetFrameworks>net45;netstandard2.1;netcoreapp2.1</TargetFrameworks>
         <LangVersion>8</LangVersion>
         <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-        <Title>Console User Interface</Title>
+        <Title>cui - The menu-based console UI library</Title>
         <Authors>xsilent007</Authors>
         <PackageProjectUrl>https://github.com/xsilent007/cui</PackageProjectUrl>
-        <PackageLicenseUrl></PackageLicenseUrl>
+        <PackageLicenseUrl>https://github.com/xsilent007/cui/tree/master/LICENSE</PackageLicenseUrl>
         <RepositoryUrl>https://github.com/xsilent007/cui</RepositoryUrl>
         <RepositoryType>Git</RepositoryType>
         <AssemblyVersion>1.0.0.0</AssemblyVersion>
         <FileVersion>1.0.0.0</FileVersion>
         <PackageVersion>1.0.0.0</PackageVersion>
+        <Description>A console UI library.</Description>
+        <PackageId>xsilent007.cui</PackageId>
     </PropertyGroup>
 
     <ItemGroup>
