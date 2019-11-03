@@ -13,31 +13,32 @@ namespace cui.Abstractions
             Controls = new List<ControlBase>();
         }
         
+        public event EnterExitHandler OnEntered;
+        public event EnterExitHandler OnExited;
+        
         public IList<ControlBase> Controls { get; }
+        public int Index { get; set; }
 
-        protected void AddControl(ControlBase control)
-        {
-            Controls.Add(control);
-        }
+        bool _copiedEvents;
+        bool _needsRedraw = true;
+        int _lastDrawnHash;
+        
+        public IEnumerable<EnterExitHandler> GetEnteredHandlers() => OnEntered?.GetInvocationList().Cast<EnterExitHandler>();
+        public IEnumerable<EnterExitHandler> GetExitedHandlers() => OnExited?.GetInvocationList().Cast<EnterExitHandler>();
+        public void Pressed(ConsoleKeyInfo info) => DrawMenu();
+        protected void AddControl(ControlBase control) => Controls.Add(control);
 
         protected void AddControls(IEnumerable<ControlBase> controls)
         {
             foreach (var con in controls) AddControl(con);
         }
         
-        public int Index { get; set; }
-
-        bool _copiedEvents;
-        void CopyEvents()
+        public override void DrawControl()
         {
-            foreach (var menu in Controls.Where(c => c is MenuBase))
-                EventCopyHelper.CopyEventHandlers(this, menu as MenuBase);
-
-            _copiedEvents = true;
+            ConsoleColorHelper.Write(Name, ConsoleColor.Yellow);
+            ConsoleColorHelper.WriteLine(" >>", ConsoleColor.Cyan);
         }
 
-        bool _needsRedraw = true;
-        int _lastDrawnHash;
         public void DrawMenu()
         {
             OnEntered?.Invoke(this);
@@ -52,14 +53,7 @@ namespace cui.Abstractions
                 if (_needsRedraw)
                 {
                     Console.Clear();
-                    NormaliseIndex();
-                    ConsoleColorHelper.WriteLine(Name + Environment.NewLine, ConsoleColor.Yellow);
-
-                    for (var i = 0; i < Controls.Count; i++)
-                    {
-                        ConsoleColorHelper.Write(Index == i ? "-> " : "   ", ConsoleColor.Cyan);
-                        Controls[i].DrawControl();
-                    }
+                    DrawContents();                    
 
                     _needsRedraw = false;
                     _lastDrawnHash = HashHelper.MakeHash(Controls);
@@ -69,58 +63,58 @@ namespace cui.Abstractions
                 
                 var key = Console.ReadKey(true);
                 if (key.Key == ConsoleKey.Escape) break;
-                
-                // ReSharper disable once SwitchStatementMissingSomeCases
-                switch (key.Key)
-                {
-                    case ConsoleKey.UpArrow:
-                        Index--;
-                        break;
-                    case ConsoleKey.DownArrow:
-                        Index++;
-                        break;
-                    case ConsoleKey.LeftArrow:
-                        ControlLeft(key);
-                        break;
-                    case ConsoleKey.RightArrow:
-                        ControlRight(key);
-                        break;
-                    case ConsoleKey.Enter:
-                        ControlPressed(key);
-                        break;
-                    default:
-                        ControlOtherKey(key);
-                        break;
-                }
 
+                ProcessKey(key);
                 _needsRedraw = true;
             }
 
             OnExited?.Invoke(this);
         }
 
-        void ControlOtherKey(ConsoleKeyInfo info)
+        void DrawContents()
         {
-            if (Controls[Index] is IOtherKey other)
-                other.OtherKey(info);
+            NormaliseIndex();
+            ConsoleColorHelper.WriteLine(Name + Environment.NewLine, ConsoleColor.Yellow);
+
+            for (var i = 0; i < Controls.Count; i++)
+            {
+                ConsoleColorHelper.Write(Index == i ? "-> " : "   ", ConsoleColor.Cyan);
+                Controls[i].DrawControl();
+            }
         }
 
-        void ControlPressed(ConsoleKeyInfo info)
+        void ProcessKey(ConsoleKeyInfo info)
         {
-            if (Controls[Index] is IPressable pressable)
-                pressable.Pressed(info);
+            // ReSharper disable once SwitchStatementMissingSomeCases
+            switch (info.Key)
+            {
+                case ConsoleKey.UpArrow:
+                    Index--;
+                    break;
+                case ConsoleKey.DownArrow:
+                    Index++;
+                    break;
+                case ConsoleKey.LeftArrow:
+                    ControlTriggerHelper.Left(this, info);
+                    break;
+                case ConsoleKey.RightArrow:
+                    ControlTriggerHelper.Right(this, info);
+                    break;
+                case ConsoleKey.Enter:
+                    ControlTriggerHelper.Press(this, info);
+                    break;
+                default:
+                    ControlTriggerHelper.OtherKey(this, info);
+                    break;
+            }
         }
-
-        void ControlLeft(ConsoleKeyInfo info)
+        
+        void CopyEvents()
         {
-            if (Controls[Index] is ILeftRight left)
-                left.Left(info);
-        }
+            foreach (var notify in Controls.Where(c => c is INotifyWhenEnteredExited))
+                EventCopyHelper.CopyEventHandlers(this, notify as INotifyWhenEnteredExited);
 
-        void ControlRight(ConsoleKeyInfo info)
-        {
-            if (Controls[Index] is ILeftRight right)
-                right.Right(info);
+            _copiedEvents = true;
         }
 
         void NormaliseIndex()
@@ -130,22 +124,5 @@ namespace cui.Abstractions
             else if (Index < 0)
                 Index = Controls.Count - 1;
         }
-
-        public override void DrawControl()
-        {
-            ConsoleColorHelper.Write(Name, ConsoleColor.Yellow);
-            ConsoleColorHelper.WriteLine(" >>", ConsoleColor.Cyan);
-        }
-        
-        public void Pressed(ConsoleKeyInfo info)
-        {
-            DrawMenu();
-        }
-
-        internal IEnumerable<EnterExitHandler> GetEnteredHandlers() => OnEntered?.GetInvocationList().Cast<EnterExitHandler>();
-        internal IEnumerable<EnterExitHandler> GetExitedHandlers() => OnExited?.GetInvocationList().Cast<EnterExitHandler>();
-        
-        public event EnterExitHandler OnEntered;
-        public event EnterExitHandler OnExited;
     }
 }

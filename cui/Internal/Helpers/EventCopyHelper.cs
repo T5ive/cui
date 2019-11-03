@@ -1,10 +1,10 @@
-using cui.Abstractions;
+using cui.Interfaces;
 
 namespace cui.Internal.Helpers
 {
     static class EventCopyHelper
     {
-        internal static void CopyEventHandlers(MenuBase original, MenuBase instance)
+        internal static void CopyEventHandlers(INotifyWhenEnteredExited original, INotifyWhenEnteredExited instance)
         {
             var entered = original.GetEnteredHandlers();
             var exited = original.GetExitedHandlers();

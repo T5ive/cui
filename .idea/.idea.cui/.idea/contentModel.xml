@@ -19,7 +19,6 @@
         <e p="CuiSettings.cs" t="Include" />
         <e p="Interfaces" t="Include">
           <e p="IControl.cs" t="Include" />
-          <e p="IEnterExitHandler.cs" t="Include" />
           <e p="IHasName.cs" t="Include" />
           <e p="ILeftRight.cs" t="Include" />
           <e p="IMenu.cs" t="Include" />
@@ -30,6 +29,7 @@
         <e p="Internal" t="Include">
           <e p="Helpers" t="Include">
             <e p="ConsoleColorHelper.cs" t="Include" />
+            <e p="ControlTriggerHelper.cs" t="Include" />
             <e p="EventCopyHelper.cs" t="Include" />
             <e p="HashHelper.cs" t="Include" />
             <e p="OperatorHelper.cs" t="Include" />

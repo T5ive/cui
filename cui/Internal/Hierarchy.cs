@@ -5,7 +5,7 @@ using cui.Interfaces;
 
 namespace cui.Internal
 {
-    class Hierarchy : IEnterExitHandler
+    class Hierarchy
     {
         readonly Stack<IHasName> _menus = new Stack<IHasName>();
 

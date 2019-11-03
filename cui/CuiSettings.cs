@@ -25,6 +25,6 @@ namespace cui
         }
         
         public bool DisableControlC { get; set; } = true;
-        public bool ShowConsoleCursor { get; set; }
+        public bool ShowConsoleCursor { get; set; } = false;
     }
 }
