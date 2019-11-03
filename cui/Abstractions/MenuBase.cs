@@ -19,21 +19,20 @@ namespace cui.Abstractions
         public IList<ControlBase> Controls { get; }
         public int Index { get; set; }
 
-        bool _copiedEvents;
-        bool _needsRedraw = true;
+        bool _needsRedraw;
         int _lastDrawnHash;
         
         public IEnumerable<EnterExitHandler> GetEnteredHandlers() => OnEntered?.GetInvocationList().Cast<EnterExitHandler>();
         public IEnumerable<EnterExitHandler> GetExitedHandlers() => OnExited?.GetInvocationList().Cast<EnterExitHandler>();
         public void Pressed(ConsoleKeyInfo info) => DrawMenu();
-        protected void AddControl(ControlBase control) => Controls.Add(control);
+        protected void AddControl(ControlBase control) => Controls.Add(control ?? throw new ArgumentNullException(nameof(control)));
 
         protected void AddControls(IEnumerable<ControlBase> controls)
         {
             foreach (var con in controls) AddControl(con);
         }
         
-        public override void DrawControl()
+        public override void DrawControl(bool selected)
         {
             ConsoleColorHelper.Write(Name, ConsoleColor.Yellow);
             ConsoleColorHelper.WriteLine(" >>", ConsoleColor.Cyan);
@@ -42,24 +41,24 @@ namespace cui.Abstractions
         public void DrawMenu()
         {
             OnEntered?.Invoke(this);
+            MenuLogicHelper.CopyEvents(this);
+            _needsRedraw = true;
 
-            if (!_copiedEvents)
-            {
-                MenuLogicHelper.CopyEvents(this);
-                _copiedEvents = true;
-            }
-
-            _lastDrawnHash = HashHelper.MakeHash(Controls);
             while (true)
             {
-                if (!_needsRedraw) _needsRedraw = HashHelper.NeedsToRedraw(_lastDrawnHash, Controls);
+                if (!_needsRedraw)
+                {
+                    //Only check the hashes if we are not already redrawing
+                    _needsRedraw = HashHelper.NeedsToRedraw(_lastDrawnHash, this);
+                }
+                
                 if (_needsRedraw)
                 {
                     Console.Clear();
                     MenuLogicHelper.DrawContents(this);                    
 
                     _needsRedraw = false;
-                    _lastDrawnHash = HashHelper.MakeHash(Controls);
+                    _lastDrawnHash = HashHelper.MakeHash(this);
                 }
 
                 if (!Console.KeyAvailable) continue;
@@ -73,7 +72,5 @@ namespace cui.Abstractions
 
             OnExited?.Invoke(this);
         }
-        
-        
     }
 }

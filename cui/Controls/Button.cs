@@ -17,7 +17,7 @@ namespace cui.Controls
             _handler = handler;
         }
 
-        public override void DrawControl()
+        public override void DrawControl(bool selected)
         {
             ConsoleColorHelper.WriteLine(Name, ConsoleColor.Cyan);
         }

@@ -22,7 +22,7 @@ namespace cui.Abstractions
             return GetHash();
         }
 
-        public virtual void DrawControl()
+        public virtual void DrawControl(bool selected)
         {
             Console.WriteLine(Name);
         }

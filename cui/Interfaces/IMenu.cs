@@ -2,10 +2,9 @@ using System.Collections.Generic;
 using cui.Abstractions;
 
 namespace cui.Interfaces {
-    public interface IMenu
+    public interface IMenu : IHasIndex
     {
         IList<ControlBase> Controls { get; }
-        int Index { get; set; }
         void DrawMenu();
     }
 }

@@ -14,12 +14,15 @@
           <e p="Checkbox.cs" t="Include" />
           <e p="Label.cs" t="Include" />
           <e p="Slider.cs" t="Include" />
+          <e p="TextBox.cs" t="Include" />
         </e>
         <e p="CuiManager.cs" t="Include" />
         <e p="CuiSettings.cs" t="Include" />
         <e p="Interfaces" t="Include">
           <e p="IControl.cs" t="Include" />
+          <e p="IHasIndex.cs" t="Include" />
           <e p="IHasName.cs" t="Include" />
+          <e p="IHasValue.cs" t="Include" />
           <e p="ILeftRight.cs" t="Include" />
           <e p="IMenu.cs" t="Include" />
           <e p="INotifyWhenEnteredExited.cs" t="Include" />

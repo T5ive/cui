@@ -21,7 +21,7 @@ namespace cui.Internal.Helpers
             for (var i = 0; i < menu.Controls.Count; i++)
             {
                 ConsoleColorHelper.Write(menu.Index == i ? "-> " : "   ", ConsoleColor.Cyan);
-                menu.Controls[i].DrawControl();
+                menu.Controls[i].DrawControl(menu.Index == i);
             }
         }
         

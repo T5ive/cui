@@ -1,28 +1,27 @@
-using System.Collections.Generic;
-using cui.Abstractions;
+using cui.Interfaces;
 
 namespace cui.Internal.Helpers
 {
     static class HashHelper
     {
-        internal static int MakeHash(IList<ControlBase> controls)
+        internal static int MakeHash(IMenu menu)
         {
-            var hash = 0;
+            var hash = menu.Index.GetHashCode();
 
-            for (var i = 0; i < controls.Count; i++)
+            foreach (var con in menu.Controls)
             {
                 unchecked
                 {
-                    hash += controls[i].GetHashCode();
+                    hash = 31 * hash + con.GetHashCode();
                 }
             }
             
             return hash;
         }
 
-        internal static bool NeedsToRedraw(int previous, IList<ControlBase> controls)
+        internal static bool NeedsToRedraw(int previous, IMenu menu)
         {
-            return previous != MakeHash(controls);
+            return previous != MakeHash(menu);
         }
     }
 }

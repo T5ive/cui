@@ -5,22 +5,28 @@ using cui.Internal.Helpers;
 
 namespace cui.Controls
 {
-    public class Checkbox : ControlBase, IOtherKey, ILeftRight, IPressable
+    public class Checkbox : ControlBase, IHasValue<bool>, IOtherKey, ILeftRight, IPressable
     {
         public Checkbox(string name) : base(name) { }
+
+        public Checkbox(string name, bool check)
+            : this(name)
+        {
+            Value = check;
+        }
         
-        public bool Checked { get; protected set; }
+        public bool Value { get; set; }
 
         protected override int GetHash()
         {
-            return Checked.GetHashCode() + Name.GetHashCode();
+            return Value.GetHashCode() + Name.GetHashCode();
         }
 
-        public override void DrawControl()
+        public override void DrawControl(bool selected)
         {
             Console.Write(Name + " ");
             ConsoleColorHelper.Write("[", ConsoleColor.Cyan);
-            ConsoleColorHelper.Write(Checked ? "X" : " ", ConsoleColor.Yellow);
+            ConsoleColorHelper.Write(Value ? "X" : " ", ConsoleColor.Yellow);
             ConsoleColorHelper.WriteLine("]", ConsoleColor.Cyan);
         }
 
@@ -42,7 +48,7 @@ namespace cui.Controls
 
         public void Pressed(ConsoleKeyInfo info)
         {
-            Checked = !Checked;
+            Value = !Value;
         }
     }
 }

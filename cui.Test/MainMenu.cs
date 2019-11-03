@@ -1,4 +1,6 @@
-using System;
+using System.Numerics;
+using System.Threading;
+using System.Threading.Tasks;
 using cui.Abstractions;
 using cui.Controls;
 
@@ -9,18 +11,34 @@ namespace cui.Test
         public MainMenu() : base("Main Menu")
         {
             AddControl(new Label("Test label"));
-            AddControl(new Button("Test button", sender =>
+            AddControl(new Button("Async test button", async sender =>
             {
-                Console.Beep();
+                await Task.Delay(5000);
+                Controls[0].Name = "Async label";
+            }));
+            AddControl(new Button("Non-async test button", sender =>
+            {
+                Thread.Sleep(5000);
+                Controls[0].Name = "Non-async label";
             }));
             AddControl(new Checkbox("Test checkbox"));
             AddControl(new Slider<int>("Test slider<int>", 10, 1, 0, 100));
-            AddControl(new Temp());
+            AddControl(new Slider<BigInteger>("Test slider<BigInteger>", 10, 1, 0, 100));
+            AddControl(new TextBox("Test textbox", "Some text"));
+            AddControl(new Submenu());
         }
 
-        class Temp : MenuBase
+        class Submenu : MenuBase
         {
-            public Temp() : base("Temp") { }
+            public Submenu() : base("Temp")
+            {
+                AddControls(new ControlBase[]
+                {
+                    new Checkbox("Temporary checkbox"),
+                    new Slider<double>("Temporary slider", 0, 1, 0, 100),
+                    new Label("Or wait, do they keep their value?"), 
+                });
+            }
         }
     }
 }

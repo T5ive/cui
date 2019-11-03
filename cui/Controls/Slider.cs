@@ -5,19 +5,14 @@ using cui.Internal.Helpers;
 
 namespace cui.Controls
 {
-    public class Slider<T> : ControlBase, ILeftRight
+    public class Slider<T> : ControlBase, IHasValue<T>, ILeftRight
     {
         public Slider(string name) : base(name) { }
 
-        public Slider(string name, T value)
+        public Slider(string name, T value, T step)
             : this(name)
         {
             Value = value;
-        }
-
-        public Slider(string name, T value, T step)
-            : this(name, value)
-        {
             Step = step;
         }
 
@@ -43,7 +38,7 @@ namespace cui.Controls
         public void Left(ConsoleKeyInfo info)
         {
             Value = (info.Modifiers & ConsoleModifiers.Control) != 0 ? Min : _sub(Value, Step);
-            if (_hasMinMaxSet && _lessThan(Value, Max)) Value = Min;
+            if (_hasMinMaxSet && _lessThan(Value, Min)) Value = Min;
         }
 
         public void Right(ConsoleKeyInfo info)
@@ -52,7 +47,7 @@ namespace cui.Controls
             if (_hasMinMaxSet && _greaterThan(Value, Max)) Value = Max;
         }
 
-        public override void DrawControl()
+        public override void DrawControl(bool selected)
         {
             Console.Write(Name + " ");
             ConsoleColorHelper.Write("<", ConsoleColor.Cyan);
