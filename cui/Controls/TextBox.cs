@@ -16,6 +16,13 @@ namespace cui.Controls
         {
             Value = value;
         }
+        
+        public TextBox(string name, string value, bool hidden, char hiddenChar = '*')
+            : this(name, value)
+        {
+            _hidden = hidden;
+            _hiddenChar = hiddenChar;
+        }
 
         public string Value
         {
@@ -24,7 +31,9 @@ namespace cui.Controls
         }
         
         public int Index { get; set; }
-        
+
+        readonly bool _hidden;
+        readonly char _hiddenChar;
         IList<char> _content = new List<char>();
 
         public void Left(ConsoleKeyInfo info) => Index--;
@@ -45,7 +54,7 @@ namespace cui.Controls
             ConsoleColorHelper.Write("[  ", ConsoleColor.Cyan);
             for (var i = 0; i < _content.Count; i++)
             {
-                ConsoleColorHelper.Write(_content[i], ConsoleColor.Yellow, selected ?
+                ConsoleColorHelper.Write(_hidden ? _hiddenChar : _content[i], ConsoleColor.Yellow, selected ?
                     Index == i ?
                         ConsoleColor.Blue : Console.BackgroundColor
                     : Console.BackgroundColor);

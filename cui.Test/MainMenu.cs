@@ -25,6 +25,7 @@ namespace cui.Test
             AddControl(new Slider<int>("Test slider<int>", 10, 1, 0, 100));
             AddControl(new Slider<BigInteger>("Test slider<BigInteger>", 10, 1, 0, 100));
             AddControl(new TextBox("Test textbox", "Some text"));
+            AddControl(new TextBox("Test password field", "password", true, '?'));
             AddControl(new Submenu());
         }
 

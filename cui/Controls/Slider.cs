@@ -5,7 +5,7 @@ using cui.Internal.Helpers;
 
 namespace cui.Controls
 {
-    public class Slider<T> : ControlBase, IHasValue<T>, ILeftRight
+    public class Slider<T> : ControlBase, IHasValue<T>, ILeftRight, IOtherKey
     {
         public Slider(string name) : base(name) { }
 
@@ -45,6 +45,19 @@ namespace cui.Controls
         {
             Value = (info.Modifiers & ConsoleModifiers.Control) != 0 ? Max : _add(Value, Step);
             if (_hasMinMaxSet && _greaterThan(Value, Max)) Value = Max;
+        }
+
+        public void OtherKey(ConsoleKeyInfo info)
+        {
+            // ReSharper disable once SwitchStatementMissingSomeCases
+            switch (info.Key) {
+                case ConsoleKey.Home:
+                    Left(new ConsoleKeyInfo('\0', ConsoleKey.Clear, false, false, true));
+                    break;
+                case ConsoleKey.End:
+                    Right(new ConsoleKeyInfo('\0', ConsoleKey.Clear, false, false, true));
+                    break;
+            }
         }
 
         public override void DrawControl(bool selected)
