@@ -32,6 +32,7 @@
             <e p="ControlTriggerHelper.cs" t="Include" />
             <e p="EventCopyHelper.cs" t="Include" />
             <e p="HashHelper.cs" t="Include" />
+            <e p="MenuLogicHelper.cs" t="Include" />
             <e p="OperatorHelper.cs" t="Include" />
           </e>
           <e p="Hierarchy.cs" t="Include" />

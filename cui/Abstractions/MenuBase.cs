@@ -42,18 +42,21 @@ namespace cui.Abstractions
         public void DrawMenu()
         {
             OnEntered?.Invoke(this);
-            
+
             if (!_copiedEvents)
-                CopyEvents();
+            {
+                MenuLogicHelper.CopyEvents(this);
+                _copiedEvents = true;
+            }
 
             _lastDrawnHash = HashHelper.MakeHash(Controls);
             while (true)
             {
-                if (!_needsRedraw) HashHelper.NeedsToRedraw(_lastDrawnHash, Controls);
+                if (!_needsRedraw) _needsRedraw = HashHelper.NeedsToRedraw(_lastDrawnHash, Controls);
                 if (_needsRedraw)
                 {
                     Console.Clear();
-                    DrawContents();                    
+                    MenuLogicHelper.DrawContents(this);                    
 
                     _needsRedraw = false;
                     _lastDrawnHash = HashHelper.MakeHash(Controls);
@@ -64,65 +67,13 @@ namespace cui.Abstractions
                 var key = Console.ReadKey(true);
                 if (key.Key == ConsoleKey.Escape) break;
 
-                ProcessKey(key);
+                MenuLogicHelper.ProcessKey(this, key);
                 _needsRedraw = true;
             }
 
             OnExited?.Invoke(this);
         }
-
-        void DrawContents()
-        {
-            NormaliseIndex();
-            ConsoleColorHelper.WriteLine(Name + Environment.NewLine, ConsoleColor.Yellow);
-
-            for (var i = 0; i < Controls.Count; i++)
-            {
-                ConsoleColorHelper.Write(Index == i ? "-> " : "   ", ConsoleColor.Cyan);
-                Controls[i].DrawControl();
-            }
-        }
-
-        void ProcessKey(ConsoleKeyInfo info)
-        {
-            // ReSharper disable once SwitchStatementMissingSomeCases
-            switch (info.Key)
-            {
-                case ConsoleKey.UpArrow:
-                    Index--;
-                    break;
-                case ConsoleKey.DownArrow:
-                    Index++;
-                    break;
-                case ConsoleKey.LeftArrow:
-                    ControlTriggerHelper.Left(this, info);
-                    break;
-                case ConsoleKey.RightArrow:
-                    ControlTriggerHelper.Right(this, info);
-                    break;
-                case ConsoleKey.Enter:
-                    ControlTriggerHelper.Press(this, info);
-                    break;
-                default:
-                    ControlTriggerHelper.OtherKey(this, info);
-                    break;
-            }
-        }
         
-        void CopyEvents()
-        {
-            foreach (var notify in Controls.Where(c => c is INotifyWhenEnteredExited))
-                EventCopyHelper.CopyEventHandlers(this, notify as INotifyWhenEnteredExited);
-
-            _copiedEvents = true;
-        }
-
-        void NormaliseIndex()
-        {
-            if (Index >= Controls.Count)
-                Index = 0;
-            else if (Index < 0)
-                Index = Controls.Count - 1;
-        }
+        
     }
 }
