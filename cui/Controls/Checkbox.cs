@@ -7,10 +7,7 @@ namespace cui.Controls
 {
     public class Checkbox : ControlBase, IHasValue<bool>, IOtherKey, ILeftRight, IPressable
     {
-        public Checkbox(string name) : base(name) { }
-
-        public Checkbox(string name, bool check)
-            : this(name)
+        public Checkbox(string name, bool check = false) : base(name)
         {
             Value = check;
         }

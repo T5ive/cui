@@ -8,7 +8,15 @@ namespace cui.Interfaces
     {
         IEnumerable<EnterExitHandler> GetEnteredHandlers();
         IEnumerable<EnterExitHandler> GetExitedHandlers();
+        
+        /// <summary>
+        /// Event fires, when DrawMenu() is called
+        /// </summary>
         event EnterExitHandler OnEntered;
+        
+        /// <summary>
+        /// Event fires, when DrawMenu() exits
+        /// </summary>
         event EnterExitHandler OnExited;
     }
 }

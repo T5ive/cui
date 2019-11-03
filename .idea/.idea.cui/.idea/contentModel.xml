@@ -28,6 +28,7 @@
           <e p="INotifyWhenEnteredExited.cs" t="Include" />
           <e p="IOtherKey.cs" t="Include" />
           <e p="IPressable.cs" t="Include" />
+          <e p="ISlider.cs" t="Include" />
         </e>
         <e p="Internal" t="Include">
           <e p="Helpers" t="Include">

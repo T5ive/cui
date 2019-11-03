@@ -6,6 +6,9 @@ using cui.Internal.Helpers;
 
 namespace cui.Abstractions
 {
+    /// <summary>
+    /// Provides a base class that all menus must inherit.
+    /// </summary>
     public abstract class MenuBase : ControlBase, IMenu, IPressable, INotifyWhenEnteredExited
     {
         protected MenuBase(string name) : base(name)
@@ -13,10 +16,16 @@ namespace cui.Abstractions
             Controls = new List<ControlBase>();
         }
         
+        /// <inheritdoc cref="INotifyWhenEnteredExited.OnEntered"/>
         public event EnterExitHandler OnEntered;
+        
+        /// <inheritdoc cref="INotifyWhenEnteredExited.OnExited"/>
         public event EnterExitHandler OnExited;
         
+        /// <inheritdoc cref="IMenu.Controls"/>    
         public IList<ControlBase> Controls { get; }
+        
+        /// <inheritdoc cref="IHasIndex.Index"/> 
         public int Index { get; set; }
 
         bool _needsRedraw;
