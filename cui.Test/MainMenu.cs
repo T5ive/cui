@@ -10,34 +10,55 @@ namespace cui.Test
     {
         public MainMenu() : base("Main Menu")
         {
-            AddControl(new Label("Test label"));
-            AddControl(new Button("Async test button", async sender =>
+            Controls.Add(new Label("Test label"));
+            Controls.Add(new Button("Async test button", async sender =>
             {
                 await Task.Delay(5000);
                 Controls[0].Name = "Async label";
             }));
-            AddControl(new Button("Non-async test button", sender =>
+            Controls.Add(new Button("Non-async test button", sender =>
             {
                 Thread.Sleep(5000);
                 Controls[0].Name = "Non-async label";
             }));
-            AddControl(new Checkbox("Test checkbox", true));
-            AddControl(new Slider<int>("Test slider<int>", 10, 1, 0, 100));
-            AddControl(new Slider<BigInteger>("Test slider<BigInteger>", 10, 1, 0, 100));
-            AddControl(new TextBox("Test textbox", "Some text"));
-            AddControl(new TextBox("Test password field", "password", true, '?'));
-            AddControl(new Submenu());
+            Controls.Add(new Checkbox("Test checkbox", true));
+            Controls.Add(new Slider<int>("Test slider<int>", 10, 1, 0, 100));
+            Controls.Add(new Slider<uint>("Test slider<uint>", 10, 1, 0, 100));
+            Controls.Add(new Slider<BigInteger>("Test slider<BigInteger>", 10, 1, 0, 100));
+            Controls.Add(new TextBox("Test textbox", "Some text"));
+            Controls.Add(new TextBox("Test password field", "password", true));
+            Controls.Add(new Submenu());
         }
 
         class Submenu : MenuBase
         {
-            public Submenu() : base("Temp")
+            readonly ProgressBar _bar = new ProgressBar("Ayylmao");
+            
+            public Submenu() : base("Just a submenu")
             {
-                AddControls(new ControlBase[]
+                Controls.AddRange(new ControlBase[]
                 {
                     new Checkbox("Temporary checkbox"),
                     new Slider<double>("Temporary slider", 0, 1, 0, 100),
-                    new Label("Or wait, do they keep their value?"), 
+                    new Label("Or wait, do they keep their value?"),
+                    new Button("You can go back also, using this button", sender => Close()),
+                    new Button("Increment progressbar to 100", async sender =>
+                    {
+                        for (var i = 0; i < 100; i++)
+                        {
+                            await Task.Delay(50);
+                            _bar.Value++;
+                        }
+                    }),
+                    new Button("Decrement progressbar to 0", async sender =>
+                    {
+                        for (var i = 0; i < 100; i++)
+                        {
+                            await Task.Delay(50);
+                            _bar.Value--;
+                        }
+                    }),
+                    _bar
                 });
             }
         }

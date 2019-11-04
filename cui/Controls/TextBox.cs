@@ -42,9 +42,9 @@ namespace cui.Controls
         void NormaliseIndex()
         {
             if (Index > _content.Count)
-                Index = 0;
-            else if (Index < 0)
                 Index = _content.Count;
+            else if (Index < 0)
+                Index = 0;
         }
         
         public override void DrawControl(bool selected)
@@ -60,7 +60,7 @@ namespace cui.Controls
                     : Console.BackgroundColor);
             }
 
-            if (Index == _content.Count)
+            if (selected && Index == _content.Count)
             {
                 ConsoleColorHelper.Write('|', ConsoleColor.Yellow, ConsoleColor.Blue);
                 ConsoleColorHelper.WriteLine(" ]", ConsoleColor.Cyan);

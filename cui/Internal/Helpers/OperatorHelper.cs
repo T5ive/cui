@@ -26,6 +26,11 @@ namespace cui.Internal.Helpers
             return CreateOperator<bool, T>("op_GreaterThan", IsUnsigned<T>() ? OpCodes.Cgt_Un : OpCodes.Cgt);
         }
 
+        internal static Func<T, T, bool> FindEquality<T>()
+        {
+            return CreateOperator<bool, T>("op_Equality", OpCodes.Ceq);
+        }
+
         static Func<T, T, TRet> CreateOperator<TRet, T>(string name, OpCode fallbackOpcode)
         {
             return CreateDelegate<TRet, T>(TryGetOperatorFunction<T>(name) ?? BuildMethod<TRet, T>(fallbackOpcode));
@@ -33,7 +38,10 @@ namespace cui.Internal.Helpers
 
         static bool IsUnsigned<T>()
         {
-            return typeof(T).Name.ToLowerInvariant()[0] == 'u';
+            return typeof(T) == typeof(byte)
+                   || typeof(T) == typeof(uint)
+                   || typeof(T) == typeof(ushort)
+                   || typeof(T) == typeof(ulong);
         }
 
         static Func<T, T, TRet> CreateDelegate<TRet, T>(MethodInfo method)

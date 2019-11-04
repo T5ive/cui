@@ -13,6 +13,7 @@
           <e p="Button.cs" t="Include" />
           <e p="Checkbox.cs" t="Include" />
           <e p="Label.cs" t="Include" />
+          <e p="ProgressBar.cs" t="Include" />
           <e p="Slider.cs" t="Include" />
           <e p="TextBox.cs" t="Include" />
         </e>
@@ -44,7 +45,7 @@
         <e p="bin" t="ExcludeRecursive" />
         <e p="cui.csproj" t="IncludeRecursive" />
         <e p="obj" t="ExcludeRecursive">
-          <e p="Release" t="Include">
+          <e p="Debug" t="Include">
             <e p="net45" t="Include">
               <e p="cui.AssemblyInfo.cs" t="Include" />
             </e>
@@ -63,7 +64,7 @@
         <e p="bin" t="ExcludeRecursive" />
         <e p="cui.Test.csproj" t="IncludeRecursive" />
         <e p="obj" t="ExcludeRecursive">
-          <e p="Release" t="Include">
+          <e p="Debug" t="Include">
             <e p="netcoreapp3.0" t="Include">
               <e p="cui.Test.AssemblyInfo.cs" t="Include" />
             </e>

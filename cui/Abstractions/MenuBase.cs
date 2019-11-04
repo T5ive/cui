@@ -23,22 +23,22 @@ namespace cui.Abstractions
         public event EnterExitHandler OnExited;
         
         /// <inheritdoc cref="IMenu.Controls"/>    
-        public IList<ControlBase> Controls { get; }
+        public List<ControlBase> Controls { get; }
         
         /// <inheritdoc cref="IHasIndex.Index"/> 
         public int Index { get; set; }
-
+        
         bool _needsRedraw;
+        bool _open = true;
         int _lastDrawnHash;
         
         public IEnumerable<EnterExitHandler> GetEnteredHandlers() => OnEntered?.GetInvocationList().Cast<EnterExitHandler>();
         public IEnumerable<EnterExitHandler> GetExitedHandlers() => OnExited?.GetInvocationList().Cast<EnterExitHandler>();
         public void Pressed(ConsoleKeyInfo info) => DrawMenu();
-        protected void AddControl(ControlBase control) => Controls.Add(control ?? throw new ArgumentNullException(nameof(control)));
 
-        protected void AddControls(IEnumerable<ControlBase> controls)
+        public void Close()
         {
-            foreach (var con in controls) AddControl(con);
+            _open = false;
         }
         
         public override void DrawControl(bool selected)
@@ -52,8 +52,9 @@ namespace cui.Abstractions
             OnEntered?.Invoke(this);
             MenuLogicHelper.CopyEvents(this);
             _needsRedraw = true;
+            _open = true;
 
-            while (true)
+            while (_open)
             {
                 if (!_needsRedraw)
                 {

@@ -20,7 +20,7 @@ namespace cui
             Setup();
             if (_settings.ShowMenuHierarchyInTitle)
                 Subscribe(menu);
-            menu.DrawMenu();
+            (menu as IMenu).DrawMenu();
         }
 
         void Subscribe(INotifyWhenEnteredExited menu)

@@ -10,7 +10,7 @@ namespace cui.Controls
     /// or can be incremented/decremented with low-level IL, see <see cref="OperatorHelper"/>
     /// </summary>
     /// <typeparam name="T">The type of <see cref="Slider{T}.Value"/></typeparam>
-    public class Slider<T> : ControlBase, ISlider<T>, ILeftRight, IOtherKey where T : IEquatable<T>
+    public class Slider<T> : ControlBase, ISlider<T>, ILeftRight, IOtherKey
     {
         /// <summary>
         /// Creates a new instance of <see cref="Slider{T}"/>
@@ -40,8 +40,8 @@ namespace cui.Controls
         {
             Min = min;
             Max = max;
-            if (Min.Equals(Max) || _greaterThan(Min, Max) || _lessThan(Max, Min))
-                throw new ArgumentOutOfRangeException(nameof(Min) + " and " + nameof(Max));
+            if (EqualsT(min, max) || GreaterThan(Min, Max) || LessThan(Max, Min))
+                throw new ArgumentOutOfRangeException(nameof(Min) + " <=> " + nameof(Max));
             
             _hasMinMaxSet = true;
         }
@@ -59,23 +59,24 @@ namespace cui.Controls
         public T Max { get; set; }
 
         readonly bool _hasMinMaxSet;
-        readonly Func<T, T, T> _add = OperatorHelper.FindAddition<T>();
-        readonly Func<T, T, T> _sub = OperatorHelper.FindSubtraction<T>();
-        readonly Func<T, T, bool> _lessThan = OperatorHelper.FindLessThan<T>();
-        readonly Func<T, T, bool> _greaterThan = OperatorHelper.FindGreaterThan<T>();
+        static readonly Func<T, T, T> Add = OperatorHelper.FindAddition<T>();
+        static readonly Func<T, T, T> Sub = OperatorHelper.FindSubtraction<T>();
+        static readonly Func<T, T, bool> LessThan = OperatorHelper.FindLessThan<T>();
+        static readonly Func<T, T, bool> GreaterThan = OperatorHelper.FindGreaterThan<T>();
+        static readonly Func<T, T, bool> EqualsT = OperatorHelper.FindEquality<T>();
         
         /// <inheritdoc cref="ILeftRight.Left"/>
         public void Left(ConsoleKeyInfo info)
         {
-            Value = (info.Modifiers & ConsoleModifiers.Control) != 0 ? Min : _sub(Value, Step);
-            if (_hasMinMaxSet && _lessThan(Value, Min)) Value = Min;
+            if (_hasMinMaxSet && EqualsT(Min, Value)) return;
+            Value = (info.Modifiers & ConsoleModifiers.Control) != 0 ? Min : Sub(Value, Step);
         }
 
         /// <inheritdoc cref="ILeftRight.Right"/>
         public void Right(ConsoleKeyInfo info)
         {
-            Value = (info.Modifiers & ConsoleModifiers.Control) != 0 ? Max : _add(Value, Step);
-            if (_hasMinMaxSet && _greaterThan(Value, Max)) Value = Max;
+            if (_hasMinMaxSet && EqualsT(Max, Value)) return;
+            Value = (info.Modifiers & ConsoleModifiers.Control) != 0 ? Max : Add(Value, Step);
         }
 
         /// <inheritdoc cref="IOtherKey.OtherKey"/>

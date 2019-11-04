@@ -1,7 +1,5 @@
-using System;
-
 namespace cui.Interfaces {
-    public interface ISlider<T> : IHasValue<T> where T : IEquatable<T> {
+    public interface ISlider<T> : IHasValue<T>{
         /// <summary>
         /// The amount the value should be incremented/decremented
         /// </summary>
