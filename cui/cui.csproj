@@ -10,9 +10,9 @@
         <PackageLicenseUrl>https://github.com/xsilent007/cui/tree/master/LICENSE</PackageLicenseUrl>
         <RepositoryUrl>https://github.com/xsilent007/cui</RepositoryUrl>
         <RepositoryType>Git</RepositoryType>
-        <AssemblyVersion>1.1.0.0</AssemblyVersion>
-        <FileVersion>1.1.0.0</FileVersion>
-        <PackageVersion>1.1.0</PackageVersion>
+        <AssemblyVersion>1.2.0.0</AssemblyVersion>
+        <FileVersion>1.2.0.0</FileVersion>
+        <PackageVersion>1.2.0</PackageVersion>
         <Description>A console UI library.</Description>
         <PackageId>xsilent007.cui</PackageId>
     </PropertyGroup>

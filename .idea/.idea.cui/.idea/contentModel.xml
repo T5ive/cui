@@ -38,14 +38,13 @@
             <e p="EventCopyHelper.cs" t="Include" />
             <e p="HashHelper.cs" t="Include" />
             <e p="MenuLogicHelper.cs" t="Include" />
-            <e p="OperatorHelper.cs" t="Include" />
           </e>
           <e p="Hierarchy.cs" t="Include" />
         </e>
         <e p="bin" t="ExcludeRecursive" />
         <e p="cui.csproj" t="IncludeRecursive" />
         <e p="obj" t="ExcludeRecursive">
-          <e p="Debug" t="Include">
+          <e p="Release" t="Include">
             <e p="net45" t="Include">
               <e p="cui.AssemblyInfo.cs" t="Include" />
             </e>
@@ -64,7 +63,7 @@
         <e p="bin" t="ExcludeRecursive" />
         <e p="cui.Test.csproj" t="IncludeRecursive" />
         <e p="obj" t="ExcludeRecursive">
-          <e p="Debug" t="Include">
+          <e p="Release" t="Include">
             <e p="netcoreapp3.0" t="Include">
               <e p="cui.Test.AssemblyInfo.cs" t="Include" />
             </e>

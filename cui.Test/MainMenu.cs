@@ -22,9 +22,7 @@ namespace cui.Test
                 Controls[0].Name = "Non-async label";
             }));
             Controls.Add(new Checkbox("Test checkbox", true));
-            Controls.Add(new Slider<int>("Test slider<int>", 10, 1, 0, 100));
-            Controls.Add(new Slider<uint>("Test slider<uint>", 10, 1, 0, 100));
-            Controls.Add(new Slider<BigInteger>("Test slider<BigInteger>", 10, 1, 0, 100));
+            Controls.Add(new Slider("Test slider", 0, 1, 0, 100));
             Controls.Add(new TextBox("Test textbox", "Some text"));
             Controls.Add(new TextBox("Test password field", "password", true));
             Controls.Add(new Submenu());
@@ -39,7 +37,6 @@ namespace cui.Test
                 Controls.AddRange(new ControlBase[]
                 {
                     new Checkbox("Temporary checkbox"),
-                    new Slider<double>("Temporary slider", 0, 1, 0, 100),
                     new Label("Or wait, do they keep their value?"),
                     new Button("You can go back also, using this button", sender => Close()),
                     new Button("Increment progressbar to 100", async sender =>
