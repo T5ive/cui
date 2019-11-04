@@ -34,7 +34,7 @@ namespace cui.Abstractions
         
         public IEnumerable<EnterExitHandler> GetEnteredHandlers() => OnEntered?.GetInvocationList().Cast<EnterExitHandler>();
         public IEnumerable<EnterExitHandler> GetExitedHandlers() => OnExited?.GetInvocationList().Cast<EnterExitHandler>();
-        public void Pressed(ConsoleKeyInfo info) => DrawMenu();
+        public virtual void Pressed(ConsoleKeyInfo info) => DrawMenu();
 
         public void Close()
         {

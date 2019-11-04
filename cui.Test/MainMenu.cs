@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Numerics;
 using System.Threading;
 using System.Threading.Tasks;
@@ -25,6 +26,14 @@ namespace cui.Test
             Controls.Add(new Slider("Test slider", 0, 1, 0, 100));
             Controls.Add(new TextBox("Test textbox", "Some text"));
             Controls.Add(new TextBox("Test password field", "password", true));
+            Controls.Add(new ComboBox("Test combobox", new List<string>
+            {
+                "Item1",
+                "Item2",
+                "Item3",
+                "Item4",
+                "Item5"
+            }));
             Controls.Add(new Submenu());
         }
 
