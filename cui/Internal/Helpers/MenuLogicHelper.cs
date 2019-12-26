@@ -5,7 +5,7 @@ using cui.Interfaces;
 
 namespace cui.Internal.Helpers
 {
-    static class MenuLogicHelper
+   public static class MenuLogicHelper
     {
         internal static void CopyEvents(MenuBase menu)
         {
@@ -17,14 +17,25 @@ namespace cui.Internal.Helpers
         {
             NormaliseIndex(menu);
             ConsoleColorHelper.WriteLine(menu.Name + Environment.NewLine, ConsoleColor.Yellow);
-
+            WriteMe(_justWriteMe);
             for (var i = 0; i < menu.Controls.Count; i++)
             {
                 ConsoleColorHelper.Write(menu.Index == i ? "-> " : "   ", ConsoleColor.Cyan);
                 menu.Controls[i].DrawControl(menu.Index == i);
             }
+            WriteMeEnd(_justWriteMeEnd);
         }
-        
+
+        public static Action _justWriteMe;
+        public static Action _justWriteMeEnd;
+        public static void WriteMe(Action method)
+        {
+            method();
+        }
+        public static void WriteMeEnd(Action method)
+        {
+            method();
+        }
         internal static void ProcessKey(IMenu menu, ConsoleKeyInfo info)
         {
             // ReSharper disable once SwitchStatementMissingSomeCases

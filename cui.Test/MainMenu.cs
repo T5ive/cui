@@ -11,6 +11,7 @@ namespace cui.Test
     {
         public MainMenu() : base("Main Menu")
         {
+           
             Controls.Add(new Label("Test label"));
             Controls.Add(new Button("Async test button", async sender =>
             {
