@@ -16,14 +16,26 @@ namespace cui.Internal.Helpers
         internal static void DrawContents(MenuBase menu)
         {
             NormaliseIndex(menu);
-            ConsoleColorHelper.WriteLine(menu.Name + Environment.NewLine, ConsoleColor.Yellow);
-            WriteMe(_justWriteMe);
+            if (_justWriteMe != null)
+            {
+                ConsoleColorHelper.WriteLine(menu.Name, ConsoleColor.Yellow);
+                WriteMe(_justWriteMe);
+            }
+            else
+            {
+                ConsoleColorHelper.WriteLine(menu.Name + Environment.NewLine, ConsoleColor.Yellow);
+            }
+
             for (var i = 0; i < menu.Controls.Count; i++)
             {
                 ConsoleColorHelper.Write(menu.Index == i ? "-> " : "   ", ConsoleColor.Cyan);
                 menu.Controls[i].DrawControl(menu.Index == i);
             }
-            WriteMeEnd(_justWriteMeEnd);
+
+            if (_justWriteMeEnd != null)
+            {
+                WriteMeEnd(_justWriteMeEnd);
+            }
         }
 
         public static Action _justWriteMe;
