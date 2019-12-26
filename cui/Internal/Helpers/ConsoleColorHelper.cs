@@ -51,6 +51,10 @@ namespace cui.Internal.Helpers
             Write(text + Environment.NewLine, foreground, background);
         }
 
+        public static void Logger(string text, ConsoleColor color=ConsoleColor.White)
+        {
+            Write(text + Environment.NewLine + Environment.NewLine, color);
+        }
 
     }
 }
