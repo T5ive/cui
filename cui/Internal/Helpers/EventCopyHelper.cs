@@ -1,5 +1,3 @@
-using cui.Interfaces;
-
 namespace cui.Internal.Helpers;
 
 internal static class EventCopyHelper

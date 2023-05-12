@@ -1,6 +1,3 @@
-using cui.Interfaces;
-using System;
-
 namespace cui.Internal.Helpers;
 
 internal static class ControlTriggerHelper

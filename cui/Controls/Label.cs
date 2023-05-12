@@ -1,5 +1,3 @@
-using cui.Abstractions;
-
 namespace cui.Controls;
 
 public class Label : ControlBase

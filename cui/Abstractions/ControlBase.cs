@@ -1,6 +1,3 @@
-using System;
-using cui.Interfaces;
-
 namespace cui.Abstractions;
 
 /// <summary>

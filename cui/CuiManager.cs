@@ -1,8 +1,3 @@
-using cui.Abstractions;
-using cui.Interfaces;
-using cui.Internal;
-using System;
-
 namespace cui;
 
 public class CuiManager
@@ -13,7 +8,7 @@ public class CuiManager
     }
 
     private readonly CuiSettings _settings;
-    private readonly Hierarchy _hierarchy = new Hierarchy();
+    private readonly Hierarchy _hierarchy = new();
 
     public void DrawMenu(MenuBase menu)
     {

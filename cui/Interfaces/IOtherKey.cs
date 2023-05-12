@@ -1,5 +1,3 @@
-using System;
-
 namespace cui.Interfaces;
 
 public interface IOtherKey

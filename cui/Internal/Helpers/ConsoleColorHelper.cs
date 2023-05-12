@@ -1,5 +1,3 @@
-using System;
-
 namespace cui.Internal.Helpers;
 
 public static class ConsoleColorHelper
