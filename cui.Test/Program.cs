@@ -8,6 +8,7 @@ namespace cui.Test
     {
         static void Main(string[] args)
         {
+            MenuLogicHelper.DisplayName = false;
             MenuLogicHelper._justWriteMe = About;
             MenuLogicHelper._justWriteMeEnd = Bye;
             new CuiManager(new CuiSettings

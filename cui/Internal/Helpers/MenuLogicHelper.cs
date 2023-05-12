@@ -11,14 +11,15 @@ public static class MenuLogicHelper
     internal static void DrawContents(MenuBase menu)
     {
         NormaliseIndex(menu);
+
         if (_justWriteMe != null)
         {
-            ConsoleColorHelper.WriteLine(menu.Name, ConsoleColor.Yellow);
             WriteMe(_justWriteMe);
         }
         else
         {
-            ConsoleColorHelper.WriteLine(menu.Name + Environment.NewLine, ConsoleColor.Yellow);
+            if (DisplayName)
+                ConsoleColorHelper.WriteLine(menu.Name + Environment.NewLine, ConsoleColor.Yellow);
         }
 
         for (var i = 0; i < menu.Controls.Count; i++)
@@ -33,6 +34,7 @@ public static class MenuLogicHelper
         }
     }
 
+    public static bool DisplayName { get; set; } = true;
     public static Action? _justWriteMe;
     public static Action? _justWriteMeEnd;
     public static void WriteMe(Action method)
