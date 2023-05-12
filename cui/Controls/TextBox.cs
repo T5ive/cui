@@ -1,9 +1,9 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using cui.Abstractions;
 using cui.Interfaces;
 using cui.Internal.Helpers;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace cui.Controls
 {
@@ -16,7 +16,7 @@ namespace cui.Controls
         {
             Value = value;
         }
-        
+
         public TextBox(string name, string value, bool hidden, char hiddenChar = '*')
             : this(name, value)
         {
@@ -29,24 +29,24 @@ namespace cui.Controls
             get => new string(_content.ToArray());
             set => _content = value.ToCharArray().ToList();
         }
-        
+
         public int Index { get; set; }
 
-        readonly bool _hidden;
-        readonly char _hiddenChar;
-        IList<char> _content = new List<char>();
+        private readonly bool _hidden;
+        private readonly char _hiddenChar;
+        private IList<char> _content = new List<char>();
 
         public void Left(ConsoleKeyInfo info) => Index--;
         public void Right(ConsoleKeyInfo info) => Index++;
 
-        void NormaliseIndex()
+        private void NormaliseIndex()
         {
             if (Index > _content.Count)
                 Index = _content.Count;
             else if (Index < 0)
                 Index = 0;
         }
-        
+
         public override void DrawControl(bool selected)
         {
             NormaliseIndex();

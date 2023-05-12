@@ -1,7 +1,7 @@
-using System;
 using cui.Abstractions;
 using cui.Interfaces;
 using cui.Internal.Helpers;
+using System;
 
 namespace cui.Controls
 {
@@ -37,7 +37,7 @@ namespace cui.Controls
             Max = max;
             if (min == max || min > max || max < min)
                 throw new ArgumentOutOfRangeException(nameof(Min) + " <=> " + nameof(Max));
-            
+
             _hasMinMaxSet = true;
         }
 
@@ -51,19 +51,19 @@ namespace cui.Controls
                 _value = value;
             }
         }
-        
+
         /// <inheritdoc cref="ISlider.Step"/>
         public decimal Step { get; set; }
-        
+
         /// <inheritdoc cref="ISlider.Min"/>
         public decimal Min { get; set; }
-        
+
         /// <inheritdoc cref="ISlider.Max"/>
         public decimal Max { get; set; }
 
-        decimal _value;
-        readonly bool _hasMinMaxSet;
-        
+        private decimal _value;
+        private readonly bool _hasMinMaxSet;
+
         /// <inheritdoc cref="ILeftRight.Left"/>
         public void Left(ConsoleKeyInfo info)
         {
@@ -83,7 +83,8 @@ namespace cui.Controls
         {
             var key = new ConsoleKeyInfo('\0', ConsoleKey.Clear, false, false, true);
             // ReSharper disable once SwitchStatementMissingSomeCases
-            switch (info.Key) {
+            switch (info.Key)
+            {
                 case ConsoleKey.Home:
                     Left(key);
                     break;

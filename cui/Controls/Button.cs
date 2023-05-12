@@ -1,12 +1,12 @@
-using System;
 using cui.Abstractions;
 using cui.Interfaces;
 using cui.Internal.Helpers;
+using System;
 
 namespace cui.Controls
 {
     public delegate void ButtonPressedHandler(Button sender);
-    
+
     public class Button : ControlBase, IPressable, IOtherKey
     {
         public Button(string name) : base(name) { }
@@ -22,7 +22,7 @@ namespace cui.Controls
             ConsoleColorHelper.WriteLine(Name, ConsoleColor.Cyan);
         }
 
-        readonly ButtonPressedHandler _handler;
+        private readonly ButtonPressedHandler _handler;
 
         public void Pressed(ConsoleKeyInfo info)
         {

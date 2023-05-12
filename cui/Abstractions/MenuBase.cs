@@ -1,8 +1,8 @@
+using cui.Interfaces;
+using cui.Internal.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using cui.Interfaces;
-using cui.Internal.Helpers;
 
 namespace cui.Abstractions
 {
@@ -15,23 +15,23 @@ namespace cui.Abstractions
         {
             Controls = new List<ControlBase>();
         }
-        
+
         /// <inheritdoc cref="INotifyWhenEnteredExited.OnEntered"/>
         public event EnterExitHandler OnEntered;
-        
+
         /// <inheritdoc cref="INotifyWhenEnteredExited.OnExited"/>
         public event EnterExitHandler OnExited;
-        
+
         /// <inheritdoc cref="IMenu.Controls"/>    
         public List<ControlBase> Controls { get; }
-        
+
         /// <inheritdoc cref="IHasIndex.Index"/> 
         public int Index { get; set; }
-        
-        bool _needsRedraw;
-        bool _open = true;
-        int _lastDrawnHash;
-        
+
+        private bool _needsRedraw;
+        private bool _open = true;
+        private int _lastDrawnHash;
+
         public IEnumerable<EnterExitHandler> GetEnteredHandlers() => OnEntered?.GetInvocationList().Cast<EnterExitHandler>();
         public IEnumerable<EnterExitHandler> GetExitedHandlers() => OnExited?.GetInvocationList().Cast<EnterExitHandler>();
         public virtual void Pressed(ConsoleKeyInfo info) => DrawMenu();
@@ -40,7 +40,7 @@ namespace cui.Abstractions
         {
             _open = false;
         }
-        
+
         public override void DrawControl(bool selected)
         {
             ConsoleColorHelper.Write(Name, ConsoleColor.Yellow);
@@ -61,18 +61,18 @@ namespace cui.Abstractions
                     //Only check the hashes if we are not already redrawing
                     _needsRedraw = HashHelper.NeedsToRedraw(_lastDrawnHash, this);
                 }
-                
+
                 if (_needsRedraw)
                 {
                     Console.Clear();
-                    MenuLogicHelper.DrawContents(this);                    
+                    MenuLogicHelper.DrawContents(this);
 
                     _needsRedraw = false;
                     _lastDrawnHash = HashHelper.MakeHash(this);
                 }
 
                 if (!Console.KeyAvailable) continue;
-                
+
                 var key = Console.ReadKey(true);
                 if (key.Key == ConsoleKey.Escape) break;
 

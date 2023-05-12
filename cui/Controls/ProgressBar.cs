@@ -1,7 +1,7 @@
-using System;
 using cui.Abstractions;
 using cui.Interfaces;
 using cui.Internal.Helpers;
+using System;
 
 namespace cui.Controls
 {
@@ -27,9 +27,9 @@ namespace cui.Controls
                 _value = value;
             }
         }
-        
-        int _value;
-        readonly char _fillChar = '#';
+
+        private int _value;
+        private readonly char _fillChar = '#';
 
         /// <inheritdoc cref="ControlBase.DrawControl"/>
         public override void DrawControl(bool selected)
@@ -37,19 +37,21 @@ namespace cui.Controls
             Console.Write(Name + " ");
             for (var i = 0; i < 26; i++)
             {
-                switch (i) {
+                switch (i)
+                {
                     case 0:
                         ConsoleColorHelper.Write("[", ConsoleColor.Cyan);
                         break;
                     case 25:
                         ConsoleColorHelper.Write("]", ConsoleColor.Cyan);
                         break;
-                    default: {
-                        var val = Value / 4;
-                        if (i < val) ConsoleColorHelper.Write(_fillChar, ConsoleColor.Yellow, Console.BackgroundColor);
-                        else Console.Write(" ");
-                        break;
-                    }
+                    default:
+                        {
+                            var val = Value / 4;
+                            if (i < val) ConsoleColorHelper.Write(_fillChar, ConsoleColor.Yellow, Console.BackgroundColor);
+                            else Console.Write(" ");
+                            break;
+                        }
                 }
             }
             ConsoleColorHelper.WriteLine(" " + Value + "%", ConsoleColor.Yellow);

@@ -1,13 +1,13 @@
+using cui.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using cui.Interfaces;
 
 namespace cui.Internal
 {
-    class Hierarchy
+    internal class Hierarchy
     {
-        readonly Stack<IHasName> _menus = new Stack<IHasName>();
+        private readonly Stack<IHasName> _menus = new Stack<IHasName>();
 
         public void Entered(IHasName element)
         {
@@ -25,7 +25,7 @@ namespace cui.Internal
             UpdateConsoleTitle();
         }
 
-        void UpdateConsoleTitle()
+        private void UpdateConsoleTitle()
         {
             Console.Title = string.Join(" >> ", _menus.Select(m => m.Name).Reverse());
         }

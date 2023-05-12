@@ -1,7 +1,7 @@
-using System;
 using cui.Abstractions;
 using cui.Interfaces;
 using cui.Internal;
+using System;
 
 namespace cui
 {
@@ -12,8 +12,8 @@ namespace cui
             _settings = settings ?? new CuiSettings();
         }
 
-        readonly CuiSettings _settings;
-        readonly Hierarchy _hierarchy = new Hierarchy();
+        private readonly CuiSettings _settings;
+        private readonly Hierarchy _hierarchy = new Hierarchy();
 
         public void DrawMenu(MenuBase menu)
         {
@@ -23,13 +23,13 @@ namespace cui
             (menu as IMenu).DrawMenu();
         }
 
-        void Subscribe(INotifyWhenEnteredExited menu)
+        private void Subscribe(INotifyWhenEnteredExited menu)
         {
             menu.OnEntered += _hierarchy.Entered;
             menu.OnExited += _hierarchy.Exited;
         }
 
-        void Setup()
+        private void Setup()
         {
             if (!_settings.ShowMenuHierarchyInTitle)
                 Console.Title = _settings.CustomTitle;

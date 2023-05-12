@@ -1,18 +1,18 @@
-using System;
-using System.Linq;
 using cui.Abstractions;
 using cui.Interfaces;
+using System;
+using System.Linq;
 
 namespace cui.Internal.Helpers
 {
-   public static class MenuLogicHelper
+    public static class MenuLogicHelper
     {
         internal static void CopyEvents(MenuBase menu)
         {
             foreach (var notify in menu.Controls.Where(c => c is INotifyWhenEnteredExited))
                 EventCopyHelper.CopyEventHandlers(menu, notify as INotifyWhenEnteredExited);
         }
-        
+
         internal static void DrawContents(MenuBase menu)
         {
             NormaliseIndex(menu);
@@ -73,8 +73,8 @@ namespace cui.Internal.Helpers
                     break;
             }
         }
-        
-        static void NormaliseIndex(IMenu menu)
+
+        private static void NormaliseIndex(IMenu menu)
         {
             if (menu.Index >= menu.Controls.Count)
                 menu.Index = 0;

@@ -1,30 +1,29 @@
-namespace cui
-{
-    public class CuiSettings
-    {
-        string _customTitle;
-        public string CustomTitle
-        {
-            get => _customTitle;
-            set
-            {
-                _customTitle = value;
-                ShowMenuHierarchyInTitle = string.IsNullOrEmpty(value);
-            }
-        }
+namespace cui;
 
-        bool _showMenuHierarchyInTitle = true;
-        public bool ShowMenuHierarchyInTitle
+public class CuiSettings
+{
+    private string _customTitle;
+    public string CustomTitle
+    {
+        get => _customTitle;
+        set
         {
-            get => _showMenuHierarchyInTitle;
-            set
-            {
-                _showMenuHierarchyInTitle = value;
-                if (value) CustomTitle = null;
-            }
+            _customTitle = value;
+            ShowMenuHierarchyInTitle = string.IsNullOrEmpty(value);
         }
-        
-        public bool DisableControlC { get; set; } = true;
-        public bool ShowConsoleCursor { get; set; } = false;
     }
+
+    private bool _showMenuHierarchyInTitle = true;
+    public bool ShowMenuHierarchyInTitle
+    {
+        get => _showMenuHierarchyInTitle;
+        set
+        {
+            _showMenuHierarchyInTitle = value;
+            if (value) CustomTitle = null;
+        }
+    }
+
+    public bool DisableControlC { get; set; } = true;
+    public bool ShowConsoleCursor { get; set; } = false;
 }

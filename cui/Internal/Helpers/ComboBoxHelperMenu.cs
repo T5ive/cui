@@ -1,11 +1,11 @@
-using System;
 using cui.Abstractions;
 using cui.Controls;
 using cui.Interfaces;
+using System;
 
 namespace cui.Internal.Helpers
 {
-    class ComboBoxHelperMenu : MenuBase
+    internal class ComboBoxHelperMenu : MenuBase
     {
         internal ComboBoxHelperMenu(ComboBox box)
             : base("Press enter/escape to go back")
@@ -24,15 +24,15 @@ namespace cui.Internal.Helpers
             return Index;
         }
 
-        class ComboBoxItem : Label, IPressable
+        private class ComboBoxItem : Label, IPressable
         {
             public ComboBoxItem(string name, IMenu parent) : base(name)
             {
                 _parent = parent;
             }
 
-            readonly IMenu _parent;
-            
+            private readonly IMenu _parent;
+
             public void Pressed(ConsoleKeyInfo info)
             {
                 _parent.Close();

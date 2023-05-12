@@ -1,10 +1,9 @@
-using System;
-using cui.Abstractions;
 using cui.Interfaces;
+using System;
 
 namespace cui.Internal.Helpers
 {
-    static class ControlTriggerHelper
+    internal static class ControlTriggerHelper
     {
         internal static void Press(IMenu menu, ConsoleKeyInfo info)
         {

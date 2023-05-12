@@ -2,7 +2,7 @@ using cui.Interfaces;
 
 namespace cui.Internal.Helpers
 {
-    static class EventCopyHelper
+    internal static class EventCopyHelper
     {
         internal static void CopyEventHandlers(INotifyWhenEnteredExited original, INotifyWhenEnteredExited instance)
         {

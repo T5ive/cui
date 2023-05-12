@@ -2,7 +2,7 @@ using cui.Interfaces;
 
 namespace cui.Internal.Helpers
 {
-    static class HashHelper
+    internal static class HashHelper
     {
         internal static int MakeHash(IMenu menu)
         {
@@ -15,7 +15,7 @@ namespace cui.Internal.Helpers
                     hash = 31 * hash + con.GetHashCode();
                 }
             }
-            
+
             return hash;
         }
 
