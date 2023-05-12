@@ -1,5 +1,3 @@
-using System.Collections.Generic;
-
 namespace cui.Interfaces;
 
 public interface IMenu : IHasIndex

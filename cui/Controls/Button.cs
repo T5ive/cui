@@ -1,5 +1,3 @@
-using cui.Internal.Helpers;
-
 namespace cui.Controls;
 
 public delegate void ButtonPressedHandler(Button sender);
@@ -23,7 +21,7 @@ public class Button : ControlBase, IPressable, IOtherKey
 
     public void Pressed(ConsoleKeyInfo info)
     {
-        _handler?.Invoke(this);
+        _handler(this);
     }
 
     public void OtherKey(ConsoleKeyInfo info)

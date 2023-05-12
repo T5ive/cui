@@ -1,7 +1,3 @@
-using cui.Internal.Helpers;
-using System.Collections.Generic;
-using System.Linq;
-
 namespace cui.Abstractions;
 
 /// <summary>
@@ -15,10 +11,10 @@ public abstract class MenuBase : ControlBase, IMenu, IPressable, INotifyWhenEnte
     }
 
     /// <inheritdoc cref="INotifyWhenEnteredExited.OnEntered"/>
-    public event EnterExitHandler OnEntered;
+    public event EnterExitHandler? OnEntered;
 
     /// <inheritdoc cref="INotifyWhenEnteredExited.OnExited"/>
-    public event EnterExitHandler OnExited;
+    public event EnterExitHandler? OnExited;
 
     /// <inheritdoc cref="IMenu.Controls"/>    
     public List<ControlBase> Controls { get; }
@@ -30,8 +26,8 @@ public abstract class MenuBase : ControlBase, IMenu, IPressable, INotifyWhenEnte
     private bool _open = true;
     private int _lastDrawnHash;
 
-    public IEnumerable<EnterExitHandler> GetEnteredHandlers() => OnEntered?.GetInvocationList().Cast<EnterExitHandler>();
-    public IEnumerable<EnterExitHandler> GetExitedHandlers() => OnExited?.GetInvocationList().Cast<EnterExitHandler>();
+    public IEnumerable<EnterExitHandler>? GetEnteredHandlers() => OnEntered?.GetInvocationList().Cast<EnterExitHandler>();
+    public IEnumerable<EnterExitHandler>? GetExitedHandlers() => OnExited?.GetInvocationList().Cast<EnterExitHandler>();
     public virtual void Pressed(ConsoleKeyInfo info) => DrawMenu();
 
     public void Close()

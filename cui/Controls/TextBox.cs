@@ -1,7 +1,3 @@
-using cui.Internal.Helpers;
-using System.Collections.Generic;
-using System.Linq;
-
 namespace cui.Controls;
 
 public class TextBox : ControlBase, IHasValue<string>, IHasIndex, ILeftRight, IOtherKey

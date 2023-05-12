@@ -1,5 +1,3 @@
-using System.Linq;
-
 namespace cui.Internal.Helpers;
 
 public static class MenuLogicHelper
@@ -35,8 +33,8 @@ public static class MenuLogicHelper
         }
     }
 
-    public static Action _justWriteMe;
-    public static Action _justWriteMeEnd;
+    public static Action? _justWriteMe;
+    public static Action? _justWriteMeEnd;
     public static void WriteMe(Action method)
     {
         method();

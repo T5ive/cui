@@ -2,34 +2,33 @@ namespace cui;
 
 public class CuiManager
 {
-    public CuiManager(CuiSettings settings = null)
+    private readonly CuiSettings _settings;
+    private readonly Hierarchy _hierarchy = new();
+
+    public CuiManager(CuiSettings? settings = null)
     {
         _settings = settings ?? new CuiSettings();
     }
 
-    private readonly CuiSettings _settings;
-    private readonly Hierarchy _hierarchy = new();
-
     public void DrawMenu(MenuBase menu)
     {
-        Setup();
+        Initialize();
         if (_settings.ShowMenuHierarchyInTitle)
-            Subscribe(menu);
+            Tracking_Events(menu);
         (menu as IMenu).DrawMenu();
     }
-
-    private void Subscribe(INotifyWhenEnteredExited menu)
+    private void Initialize()
     {
-        menu.OnEntered += _hierarchy.Entered;
-        menu.OnExited += _hierarchy.Exited;
-    }
-
-    private void Setup()
-    {
-        if (!_settings.ShowMenuHierarchyInTitle)
+        if (_settings is { ShowMenuHierarchyInTitle: false, CustomTitle: not null })
             Console.Title = _settings.CustomTitle;
 
         Console.CursorVisible = _settings.ShowConsoleCursor;
         Console.TreatControlCAsInput = _settings.DisableControlC;
+    }
+
+    private void Tracking_Events(INotifyWhenEnteredExited menu)
+    {
+        menu.OnEntered += _hierarchy.Entered;
+        menu.OnExited += _hierarchy.Exited;
     }
 }

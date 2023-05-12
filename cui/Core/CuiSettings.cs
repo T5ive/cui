@@ -1,9 +1,9 @@
-namespace cui;
+namespace cui.Core;
 
 public class CuiSettings
 {
-    private string _customTitle;
-    public string CustomTitle
+    private string? _customTitle;
+    public string? CustomTitle
     {
         get => _customTitle;
         set

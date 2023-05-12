@@ -1,5 +1,6 @@
-﻿using System;
+﻿using cui.Core;
 using cui.Internal.Helpers;
+using System;
 
 namespace cui.Test
 {

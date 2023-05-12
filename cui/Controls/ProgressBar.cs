@@ -1,5 +1,3 @@
-using cui.Internal.Helpers;
-
 namespace cui.Controls;
 
 public class ProgressBar : ControlBase, IHasValue<int>

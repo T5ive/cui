@@ -1,5 +1,3 @@
-using cui.Controls;
-
 namespace cui.Internal.Helpers;
 
 internal class ComboBoxHelperMenu : MenuBase
