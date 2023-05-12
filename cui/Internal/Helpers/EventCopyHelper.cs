@@ -1,23 +1,22 @@
 using cui.Interfaces;
 
-namespace cui.Internal.Helpers
+namespace cui.Internal.Helpers;
+
+internal static class EventCopyHelper
 {
-    internal static class EventCopyHelper
+    internal static void CopyEventHandlers(INotifyWhenEnteredExited original, INotifyWhenEnteredExited instance)
     {
-        internal static void CopyEventHandlers(INotifyWhenEnteredExited original, INotifyWhenEnteredExited instance)
+        var entered = original.GetEnteredHandlers();
+        var exited = original.GetExitedHandlers();
+
+        if (!(entered is null))
         {
-            var entered = original.GetEnteredHandlers();
-            var exited = original.GetExitedHandlers();
+            foreach (var enter in entered) instance.OnEntered += enter;
+        }
 
-            if (!(entered is null))
-            {
-                foreach (var enter in entered) instance.OnEntered += enter;
-            }
-
-            if (!(exited is null))
-            {
-                foreach (var exit in exited) instance.OnExited += exit;
-            }
+        if (!(exited is null))
+        {
+            foreach (var exit in exited) instance.OnExited += exit;
         }
     }
 }

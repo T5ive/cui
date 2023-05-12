@@ -5,96 +5,95 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace cui.Controls
+namespace cui.Controls;
+
+public class TextBox : ControlBase, IHasValue<string>, IHasIndex, ILeftRight, IOtherKey
 {
-    public class TextBox : ControlBase, IHasValue<string>, IHasIndex, ILeftRight, IOtherKey
+    public TextBox(string name) : base(name) { }
+
+    public TextBox(string name, string value)
+        : this(name)
     {
-        public TextBox(string name) : base(name) { }
+        Value = value;
+    }
 
-        public TextBox(string name, string value)
-            : this(name)
+    public TextBox(string name, string value, bool hidden, char hiddenChar = '*')
+        : this(name, value)
+    {
+        _hidden = hidden;
+        _hiddenChar = hiddenChar;
+    }
+
+    public string Value
+    {
+        get => new string(_content.ToArray());
+        set => _content = value.ToCharArray().ToList();
+    }
+
+    public int Index { get; set; }
+
+    private readonly bool _hidden;
+    private readonly char _hiddenChar;
+    private IList<char> _content = new List<char>();
+
+    public void Left(ConsoleKeyInfo info) => Index--;
+    public void Right(ConsoleKeyInfo info) => Index++;
+
+    private void NormaliseIndex()
+    {
+        if (Index > _content.Count)
+            Index = _content.Count;
+        else if (Index < 0)
+            Index = 0;
+    }
+
+    public override void DrawControl(bool selected)
+    {
+        NormaliseIndex();
+        Console.Write(Name + " ");
+        ConsoleColorHelper.Write("[  ", ConsoleColor.Cyan);
+        for (var i = 0; i < _content.Count; i++)
         {
-            Value = value;
+            ConsoleColorHelper.Write(_hidden ? _hiddenChar : _content[i], ConsoleColor.Yellow, selected ?
+                                         Index == i ?
+                                             ConsoleColor.Blue : Console.BackgroundColor
+                                         : Console.BackgroundColor);
         }
 
-        public TextBox(string name, string value, bool hidden, char hiddenChar = '*')
-            : this(name, value)
+        if (selected && Index == _content.Count)
         {
-            _hidden = hidden;
-            _hiddenChar = hiddenChar;
+            ConsoleColorHelper.Write('|', ConsoleColor.Yellow, ConsoleColor.Blue);
+            ConsoleColorHelper.WriteLine(" ]", ConsoleColor.Cyan);
         }
+        else ConsoleColorHelper.WriteLine("  ]", ConsoleColor.Cyan);
+    }
 
-        public string Value
+    public void OtherKey(ConsoleKeyInfo info)
+    {
+        // ReSharper disable once SwitchStatementMissingSomeCases
+        switch (info.Key)
         {
-            get => new string(_content.ToArray());
-            set => _content = value.ToCharArray().ToList();
-        }
-
-        public int Index { get; set; }
-
-        private readonly bool _hidden;
-        private readonly char _hiddenChar;
-        private IList<char> _content = new List<char>();
-
-        public void Left(ConsoleKeyInfo info) => Index--;
-        public void Right(ConsoleKeyInfo info) => Index++;
-
-        private void NormaliseIndex()
-        {
-            if (Index > _content.Count)
-                Index = _content.Count;
-            else if (Index < 0)
+            case ConsoleKey.Home:
                 Index = 0;
-        }
-
-        public override void DrawControl(bool selected)
-        {
-            NormaliseIndex();
-            Console.Write(Name + " ");
-            ConsoleColorHelper.Write("[  ", ConsoleColor.Cyan);
-            for (var i = 0; i < _content.Count; i++)
-            {
-                ConsoleColorHelper.Write(_hidden ? _hiddenChar : _content[i], ConsoleColor.Yellow, selected ?
-                    Index == i ?
-                        ConsoleColor.Blue : Console.BackgroundColor
-                    : Console.BackgroundColor);
-            }
-
-            if (selected && Index == _content.Count)
-            {
-                ConsoleColorHelper.Write('|', ConsoleColor.Yellow, ConsoleColor.Blue);
-                ConsoleColorHelper.WriteLine(" ]", ConsoleColor.Cyan);
-            }
-            else ConsoleColorHelper.WriteLine("  ]", ConsoleColor.Cyan);
-        }
-
-        public void OtherKey(ConsoleKeyInfo info)
-        {
-            // ReSharper disable once SwitchStatementMissingSomeCases
-            switch (info.Key)
-            {
-                case ConsoleKey.Home:
-                    Index = 0;
-                    break;
-                case ConsoleKey.End:
-                    Index = _content.Count;
-                    break;
-                case ConsoleKey.Backspace:
-                    if (Index > 0)
-                    {
-                        _content.RemoveAt(Index - 1);
-                        Index--;
-                    }
-                    break;
-                case ConsoleKey.Delete:
-                    if (Index < _content.Count)
-                        _content.RemoveAt(Index);
-                    break;
-                default:
-                    _content.Insert(Index, info.KeyChar);
-                    Index++;
-                    break;
-            }
+                break;
+            case ConsoleKey.End:
+                Index = _content.Count;
+                break;
+            case ConsoleKey.Backspace:
+                if (Index > 0)
+                {
+                    _content.RemoveAt(Index - 1);
+                    Index--;
+                }
+                break;
+            case ConsoleKey.Delete:
+                if (Index < _content.Count)
+                    _content.RemoveAt(Index);
+                break;
+            default:
+                _content.Insert(Index, info.KeyChar);
+                Index++;
+                break;
         }
     }
 }

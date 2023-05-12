@@ -1,7 +1,6 @@
-namespace cui.Interfaces
+namespace cui.Interfaces;
+
+public interface IControl
 {
-    public interface IControl
-    {
-        void DrawControl(bool selected);
-    }
+    void DrawControl(bool selected);
 }

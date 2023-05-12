@@ -3,40 +3,39 @@ using cui.Controls;
 using cui.Interfaces;
 using System;
 
-namespace cui.Internal.Helpers
+namespace cui.Internal.Helpers;
+
+internal class ComboBoxHelperMenu : MenuBase
 {
-    internal class ComboBoxHelperMenu : MenuBase
+    internal ComboBoxHelperMenu(ComboBox box)
+        : base("Press enter/escape to go back")
     {
-        internal ComboBoxHelperMenu(ComboBox box)
-            : base("Press enter/escape to go back")
+        foreach (var value in box.Value)
         {
-            foreach (var value in box.Value)
-            {
-                Controls.Add(new ComboBoxItem(value, this));
-            }
-
-            Index = box.Index;
+            Controls.Add(new ComboBoxItem(value, this));
         }
 
-        internal int GetNewIndex()
+        Index = box.Index;
+    }
+
+    internal int GetNewIndex()
+    {
+        DrawMenu();
+        return Index;
+    }
+
+    private class ComboBoxItem : Label, IPressable
+    {
+        public ComboBoxItem(string name, IMenu parent) : base(name)
         {
-            DrawMenu();
-            return Index;
+            _parent = parent;
         }
 
-        private class ComboBoxItem : Label, IPressable
+        private readonly IMenu _parent;
+
+        public void Pressed(ConsoleKeyInfo info)
         {
-            public ComboBoxItem(string name, IMenu parent) : base(name)
-            {
-                _parent = parent;
-            }
-
-            private readonly IMenu _parent;
-
-            public void Pressed(ConsoleKeyInfo info)
-            {
-                _parent.Close();
-            }
+            _parent.Close();
         }
     }
 }

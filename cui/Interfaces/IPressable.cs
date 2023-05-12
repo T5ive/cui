@@ -1,9 +1,8 @@
 using System;
 
-namespace cui.Interfaces
+namespace cui.Interfaces;
+
+public interface IPressable
 {
-    public interface IPressable
-    {
-        void Pressed(ConsoleKeyInfo info);
-    }
+    void Pressed(ConsoleKeyInfo info);
 }

@@ -1,27 +1,26 @@
 using cui.Interfaces;
 
-namespace cui.Internal.Helpers
+namespace cui.Internal.Helpers;
+
+internal static class HashHelper
 {
-    internal static class HashHelper
+    internal static int MakeHash(IMenu menu)
     {
-        internal static int MakeHash(IMenu menu)
-        {
-            var hash = menu.Index.GetHashCode();
+        var hash = menu.Index.GetHashCode();
 
-            foreach (var con in menu.Controls)
+        foreach (var con in menu.Controls)
+        {
+            unchecked
             {
-                unchecked
-                {
-                    hash = 31 * hash + con.GetHashCode();
-                }
+                hash = 31 * hash + con.GetHashCode();
             }
-
-            return hash;
         }
 
-        internal static bool NeedsToRedraw(int previous, IMenu menu)
-        {
-            return previous != MakeHash(menu);
-        }
+        return hash;
+    }
+
+    internal static bool NeedsToRedraw(int previous, IMenu menu)
+    {
+        return previous != MakeHash(menu);
     }
 }

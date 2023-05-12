@@ -1,18 +1,18 @@
-namespace cui.Interfaces {
-    public interface ISlider : IHasValue<decimal>{
-        /// <summary>
-        /// The amount the value should be incremented/decremented
-        /// </summary>
-        decimal Step { get; set; }
+namespace cui.Interfaces;
 
-        /// <summary>
-        /// Absolute minimum value
-        /// </summary>
-        decimal Min { get; set; }
+public interface ISlider : IHasValue<decimal>{
+    /// <summary>
+    /// The amount the value should be incremented/decremented
+    /// </summary>
+    decimal Step { get; set; }
 
-        /// <summary>
-        /// Absolute maximum value
-        /// </summary>
-        decimal Max { get; set; }
-    }
+    /// <summary>
+    /// Absolute minimum value
+    /// </summary>
+    decimal Min { get; set; }
+
+    /// <summary>
+    /// Absolute maximum value
+    /// </summary>
+    decimal Max { get; set; }
 }

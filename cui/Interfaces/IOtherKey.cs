@@ -1,9 +1,8 @@
 using System;
 
-namespace cui.Interfaces
+namespace cui.Interfaces;
+
+public interface IOtherKey
 {
-    public interface IOtherKey
-    {
-        void OtherKey(ConsoleKeyInfo info);
-    }
+    void OtherKey(ConsoleKeyInfo info);
 }

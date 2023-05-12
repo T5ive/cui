@@ -1,9 +1,8 @@
 using cui.Abstractions;
 
-namespace cui.Controls
+namespace cui.Controls;
+
+public class Label : ControlBase
 {
-    public class Label : ControlBase
-    {
-        public Label(string name) : base(name) { }
-    }
+    public Label(string name) : base(name) { }
 }

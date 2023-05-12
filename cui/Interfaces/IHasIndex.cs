@@ -1,10 +1,9 @@
-namespace cui.Interfaces
+namespace cui.Interfaces;
+
+public interface IHasIndex
 {
-    public interface IHasIndex
-    {
-        /// <summary>
-        /// Index that a control holds.
-        /// </summary>
-        int Index { get; set; }
-    }
+    /// <summary>
+    /// Index that a control holds.
+    /// </summary>
+    int Index { get; set; }
 }

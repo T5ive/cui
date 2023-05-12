@@ -3,36 +3,35 @@ using cui.Interfaces;
 using cui.Internal.Helpers;
 using System;
 
-namespace cui.Controls
+namespace cui.Controls;
+
+public delegate void ButtonPressedHandler(Button sender);
+
+public class Button : ControlBase, IPressable, IOtherKey
 {
-    public delegate void ButtonPressedHandler(Button sender);
+    public Button(string name) : base(name) { }
 
-    public class Button : ControlBase, IPressable, IOtherKey
+    public Button(string name, ButtonPressedHandler handler)
+        : this(name)
     {
-        public Button(string name) : base(name) { }
+        _handler = handler;
+    }
 
-        public Button(string name, ButtonPressedHandler handler)
-            : this(name)
-        {
-            _handler = handler;
-        }
+    public override void DrawControl(bool selected)
+    {
+        ConsoleColorHelper.WriteLine(Name, ConsoleColor.Cyan);
+    }
 
-        public override void DrawControl(bool selected)
-        {
-            ConsoleColorHelper.WriteLine(Name, ConsoleColor.Cyan);
-        }
+    private readonly ButtonPressedHandler _handler;
 
-        private readonly ButtonPressedHandler _handler;
+    public void Pressed(ConsoleKeyInfo info)
+    {
+        _handler?.Invoke(this);
+    }
 
-        public void Pressed(ConsoleKeyInfo info)
-        {
-            _handler?.Invoke(this);
-        }
-
-        public void OtherKey(ConsoleKeyInfo info)
-        {
-            if (info.Key == ConsoleKey.Spacebar)
-                Pressed(info);
-        }
+    public void OtherKey(ConsoleKeyInfo info)
+    {
+        if (info.Key == ConsoleKey.Spacebar)
+            Pressed(info);
     }
 }
